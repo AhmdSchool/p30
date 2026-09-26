@@ -8,135 +8,55 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
   :root {
     --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e57c2 100%);
     --card-bg: rgba(255, 255, 255, 0.97);
     --text-color: #1a2b4c;
-    --gold: #d4af37;
-    --green: #1abc9c;
-    --teal: #00897b;
-    --purple: #7b2ff7;
-    --pink: #ff6b9d;
-    --success: #06d6a0;
-    --danger: #ef476f;
+    --gold: #d4af37; --green: #1abc9c; --teal: #00897b;
+    --purple: #7b2ff7; --pink: #ff6b9d;
+    --success: #06d6a0; --danger: #ef476f;
     --shadow: 0 8px 25px rgba(0,0,0,0.15);
-    --container-max: 1200px;
-    --container-pad: 15px;
+    --container-max: 1200px; --container-pad: 15px;
   }
-
   @media (min-width: 900px) { :root { --container-max: 1300px; --container-pad: 25px; } }
   @media (min-width: 1280px) { :root { --container-max: 1440px; --container-pad: 35px; } }
   @media (min-width: 1600px) { :root { --container-max: 1560px; --container-pad: 45px; } }
-
   body.dark-mode {
     --bg-gradient: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 50%, #2d1b4e 100%);
     --card-bg: rgba(25, 30, 55, 0.96);
-    --text-color: #e8eaf6;
-    --shadow: 0 8px 25px rgba(0,0,0,0.6);
+    --text-color: #e8eaf6; --shadow: 0 8px 25px rgba(0,0,0,0.6);
   }
-
   body {
     font-family: 'Cairo', 'Tahoma', sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: var(--text-color);
+    background: var(--bg-gradient); background-attachment: fixed;
+    min-height: 100vh; color: var(--text-color);
     transition: background 0.5s, color 0.3s;
-    padding-bottom: 100px;
-    position: relative;
-    overflow-x: hidden;
+    padding-bottom: 100px; overflow-x: hidden;
   }
-
   body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    content: ''; position: fixed; inset: 0;
     background-image:
       radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
       radial-gradient(2px 2px at 60% 70%, rgba(212,175,55,0.6), transparent),
       radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.4), transparent),
-      radial-gradient(1px 1px at 40% 80%, rgba(212,175,55,0.5), transparent),
-      radial-gradient(2px 2px at 10% 60%, rgba(255,255,255,0.3), transparent),
-      radial-gradient(1px 1px at 90% 50%, rgba(212,175,55,0.4), transparent);
+      radial-gradient(1px 1px at 40% 80%, rgba(212,175,55,0.5), transparent);
     background-size: 200% 200%;
     animation: twinkle 8s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
+  @keyframes twinkle { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-
-  /* ================= HEADER ================= */
-  header {
-    text-align: center;
-    padding: 22px var(--container-pad) 15px;
-    position: relative;
-    z-index: 1;
-    max-width: var(--container-max);
-    margin: 0 auto;
-  }
-
-  header h1 {
-    font-size: clamp(1.6rem, 4vw, 2.8rem);
-    font-family: 'Amiri', serif;
-    background: linear-gradient(90deg, #d4af37, #ffd700, #d4af37);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-    animation: glow 3s ease-in-out infinite;
-    font-weight: 700;
-  }
-
-  @keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 10px rgba(212,175,55,0.4)); }
-    50% { filter: drop-shadow(0 0 25px rgba(212,175,55,0.8)); }
-  }
-
-  header p {
-    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-    opacity: 0.95;
-    color: #fff;
-  }
-
-  .bismillah {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
-    color: var(--gold);
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    opacity: 0.95;
-  }
-
-  .logo-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 8px;
-  }
-
+  /* HEADER */
+  header { text-align: center; padding: 22px var(--container-pad) 15px; position: relative; z-index: 1; max-width: var(--container-max); margin: 0 auto; }
+  header h1 { font-size: clamp(1.6rem, 4vw, 2.8rem); font-family: 'Amiri', serif; background: linear-gradient(90deg,#d4af37,#ffd700,#d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; animation: glow 3s ease-in-out infinite; font-weight: 700; }
+  @keyframes glow { 0%,100%{filter:drop-shadow(0 0 10px rgba(212,175,55,.4))} 50%{filter:drop-shadow(0 0 25px rgba(212,175,55,.8))} }
+  header p { font-size: clamp(0.85rem, 2.5vw, 1.1rem); opacity: 0.95; color: #fff; }
+  .bismillah { font-family: 'Amiri', serif; font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--gold); text-align: center; padding: 10px; margin-bottom: 10px; opacity: 0.95; }
+  .logo-header { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 8px; }
   .logo-svg { width: 120px; height: 120px; filter: drop-shadow(0 4px 12px rgba(26,93,171,.4)); }
   .logo-img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(26,93,171,.4)); }
-
   @media (min-width: 900px) {
-    header {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        "bismillah bismillah"
-        "logo title"
-        "logo subtitle";
-      align-items: center;
-      gap: 6px 35px;
-      text-align: right;
-      padding: 30px var(--container-pad) 22px;
-    }
+    header { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "bismillah bismillah" "logo title" "logo subtitle"; align-items: center; gap: 6px 35px; text-align: right; padding: 30px var(--container-pad) 22px; }
     .bismillah { grid-area: bismillah; font-size: 1.4rem; padding: 4px; margin-bottom: 5px; }
     .logo-header { grid-area: logo; margin-bottom: 0; }
     header h1 { grid-area: title; text-align: right; margin: 0; font-size: 2.8rem; }
@@ -144,1108 +64,406 @@
     .logo-svg, .logo-img { width: 150px; height: 150px; }
   }
 
-  /* ================= TABS ================= */
-  .tabs-container {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--card-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 14px 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    margin-bottom: 28px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
+  /* TABS */
+  .tabs-container { position: sticky; top: 0; z-index: 100; background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 14px 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; }
   .tabs-container::-webkit-scrollbar { display: none; }
-
-  .tabs {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    min-width: max-content;
-    padding: 0 10px;
-    max-width: var(--container-max);
-    margin: 0 auto;
-  }
-
+  .tabs { display: flex; gap: 8px; justify-content: center; min-width: max-content; padding: 0 10px; max-width: var(--container-max); margin: 0 auto; }
   @media (min-width: 700px) { .tabs { gap: 14px; } }
-
-  .tab {
-    padding: 10px 18px;
-    border: 2px solid transparent;
-    border-radius: 25px;
-    background: rgba(212, 175, 55, 0.15);
-    color: var(--text-color);
-    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    white-space: nowrap;
-    font-family: inherit;
-  }
-
-  @media (min-width: 900px) { .tab { padding: 12px 28px; font-size: 1.05rem; } }
-
+  .tab { padding: 10px 18px; border: 2px solid transparent; border-radius: 25px; background: rgba(212, 175, 55, 0.15); color: var(--text-color); font-size: clamp(0.8rem, 2.2vw, 0.95rem); font-weight: 700; cursor: pointer; transition: all 0.3s; white-space: nowrap; font-family: inherit; }
+  @media (min-width: 900px) { .tab { padding: 12px 24px; font-size: 1rem; } }
   .tab:hover { transform: translateY(-2px); background: rgba(212, 175, 55, 0.3); }
+  .tab.active { background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); }
 
-  .tab.active {
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
-  }
-
-  /* ================= CONTAINER ================= */
-  .container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-pad);
-    position: relative;
-    z-index: 1;
-  }
-
+  /* CONTAINER */
+  .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); position: relative; z-index: 1; }
   .section { display: none; animation: fadeIn 0.5s ease; }
   .section.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    color: #fff;
-    font-family: 'Amiri', serif;
-  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .section-title { text-align: center; font-size: clamp(1.2rem, 3.5vw, 1.8rem); margin-bottom: 22px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; color: #fff; font-family: 'Amiri', serif; }
   @media (min-width: 900px) { .section-title { font-size: 2rem; margin-bottom: 28px; } }
-
   .section-title .emoji { font-size: 1.5em; }
 
-  /* ================= SURAHS GRID ================= */
-  .surahs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-
+  /* SURAHS GRID */
+  .surahs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
   @media (min-width: 600px) { .surahs-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 18px; } }
   @media (min-width: 1024px) { .surahs-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; } }
   @media (min-width: 1440px) { .surahs-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; } }
-
-  .surah-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 18px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: var(--shadow);
-    border: 3px solid transparent;
-    user-select: none;
-    position: relative;
-    overflow: hidden;
-  }
-
+  .surah-card { background: var(--card-bg); border-radius: 20px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: var(--shadow); border: 3px solid transparent; user-select: none; position: relative; overflow: hidden; }
   @media (min-width: 1024px) { .surah-card { padding: 26px 16px; border-radius: 22px; } }
-
-  .surah-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(123, 47, 247, 0.05));
-    pointer-events: none;
-  }
-
-  .surah-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: var(--gold);
-    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
-  }
-
-  .surah-number {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 0.9rem;
-    box-shadow: 0 3px 8px rgba(212, 175, 55, 0.4);
-  }
-
-  .surah-icon {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    margin: 8px 0 6px;
-  }
+  .surah-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(123, 47, 247, 0.05)); pointer-events: none; }
+  .surah-card:hover { transform: translateY(-8px) scale(1.03); border-color: var(--gold); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4); }
+  .surah-number { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; box-shadow: 0 3px 8px rgba(212, 175, 55, 0.4); }
+  .surah-icon { font-size: clamp(2rem, 5vw, 2.8rem); margin: 8px 0 6px; }
   @media (min-width: 1024px) { .surah-icon { font-size: 3.2rem; margin: 12px 0 8px; } }
-
-  .surah-name {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.1rem, 3vw, 1.4rem);
-    font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 4px;
-  }
+  .surah-name { font-family: 'Amiri', serif; font-size: clamp(1.1rem, 3vw, 1.4rem); font-weight: 700; color: var(--teal); margin-bottom: 4px; }
   @media (min-width: 1024px) { .surah-name { font-size: 1.6rem; } }
-
   body.dark-mode .surah-name { color: var(--gold); }
-
-  .surah-info {
-    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
-    opacity: 0.75;
-  }
+  .surah-info { font-size: clamp(0.7rem, 1.8vw, 0.8rem); opacity: 0.75; }
   @media (min-width: 1024px) { .surah-info { font-size: 0.9rem; } }
 
-  /* ================= SURAH VIEWER ================= */
-  .surah-viewer {
-    background: var(--card-bg);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: var(--shadow);
-    margin-bottom: 25px;
-    border: 2px solid rgba(212, 175, 55, 0.3);
-  }
+  /* SURAH VIEWER */
+  .surah-viewer { background: var(--card-bg); border-radius: 25px; padding: 25px; box-shadow: var(--shadow); margin-bottom: 25px; border: 2px solid rgba(212, 175, 55, 0.3); }
   @media (min-width: 1024px) { .surah-viewer { padding: 42px; border-radius: 28px; } }
-
-  .surah-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
-  }
-
-  .surah-header h2 {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    color: var(--teal);
-    margin-bottom: 10px;
-  }
+  .surah-header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); }
+  .surah-header h2 { font-family: 'Amiri', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--teal); margin-bottom: 10px; }
   @media (min-width: 1024px) { .surah-header h2 { font-size: 2.6rem; } }
-
   body.dark-mode .surah-header h2 { color: var(--gold); }
-
-  .surah-meta {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-  }
+  .surah-meta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
   @media (min-width: 1024px) { .surah-meta { gap: 15px; } }
-
-  .meta-badge {
-    padding: 7px 16px;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
+  .meta-badge { padding: 7px 16px; background: rgba(212, 175, 55, 0.15); border-radius: 15px; font-size: 0.85rem; font-weight: 700; }
   @media (min-width: 1024px) { .meta-badge { font-size: 1rem; padding: 8px 20px; } }
-
-  .surah-controls {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-    align-items: center;
-  }
-
-  .repeat-control {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
+  .surah-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+  .repeat-control { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(212, 175, 55, 0.15); border-radius: 12px; font-weight: 700; font-size: 0.9rem; }
   @media (min-width: 1024px) { .repeat-control { font-size: 1rem; padding: 12px 22px; } }
-
-  .repeat-control select {
-    font-family: inherit;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 8px;
-    border: 2px solid var(--gold);
-    background: var(--card-bg);
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 1rem;
-  }
-
-  .btn {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 12px;
-    font-size: clamp(0.85rem, 2.3vw, 1rem);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: inherit;
-    color: white;
-  }
+  .repeat-control select { font-family: inherit; font-weight: 700; padding: 5px 10px; border-radius: 8px; border: 2px solid var(--gold); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 1rem; }
+  .btn { padding: 12px 22px; border: none; border-radius: 12px; font-size: clamp(0.85rem, 2.3vw, 1rem); font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; color: white; }
   @media (min-width: 1024px) { .btn { padding: 14px 28px; font-size: 1.05rem; border-radius: 14px; } }
-
-  .btn-gold {
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-  }
+  .btn-gold { background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
   .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
-
   .btn-teal { background: linear-gradient(135deg, var(--teal), var(--green)); }
   .btn-teal:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 188, 156, 0.5); }
-
   .btn-purple { background: linear-gradient(135deg, var(--purple), var(--pink)); }
   .btn-purple:hover { transform: translateY(-2px); }
-
   .btn-secondary { background: rgba(0,0,0,0.08); color: var(--text-color); }
   body.dark-mode .btn-secondary { background: rgba(255,255,255,0.1); }
   .btn-secondary:hover { background: rgba(0,0,0,0.15); transform: translateY(-2px); }
-
   .btn-danger { background: linear-gradient(135deg, #ef476f, #ff6b9d); }
   .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
-
-  .verses-container {
-    max-height: 520px;
-    overflow-y: auto;
-    padding: 18px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(26, 188, 156, 0.05));
-    border-radius: 18px;
-    border: 2px solid rgba(212, 175, 55, 0.15);
-  }
-  @media (min-width: 1024px) {
-    .verses-container { max-height: 680px; padding: 28px; border-radius: 22px; }
-  }
-
-  .verse {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.15rem, 3.2vw, 1.6rem);
-    line-height: 2.4;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: justify;
-    direction: rtl;
-    background: rgba(255,255,255,0.5);
-    border-right: 4px solid var(--gold);
-  }
-  @media (min-width: 1024px) {
-    .verse {
-      font-size: 1.85rem;
-      line-height: 2.7;
-      padding: 20px 28px;
-      margin-bottom: 15px;
-      border-right-width: 5px;
-    }
-  }
-
+  .verses-container { max-height: 520px; overflow-y: auto; padding: 18px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(26, 188, 156, 0.05)); border-radius: 18px; border: 2px solid rgba(212, 175, 55, 0.15); }
+  @media (min-width: 1024px) { .verses-container { max-height: 680px; padding: 28px; border-radius: 22px; } }
+  .verse { font-family: 'Amiri', serif; font-size: clamp(1.15rem, 3.2vw, 1.6rem); line-height: 2.4; padding: 14px 18px; margin-bottom: 12px; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: justify; direction: rtl; background: rgba(255,255,255,0.5); border-right: 4px solid var(--gold); }
+  @media (min-width: 1024px) { .verse { font-size: 1.85rem; line-height: 2.7; padding: 20px 28px; margin-bottom: 15px; border-right-width: 5px; } }
   body.dark-mode .verse { background: rgba(255,255,255,0.05); }
-
-  .verse:hover {
-    background: rgba(212, 175, 55, 0.15);
-    transform: translateX(-4px);
-  }
-
-  .verse.playing {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(26, 188, 156, 0.2));
-    border-right-color: var(--green);
-  }
-
-  .verse .word {
-    transition: background 0.2s, color 0.2s;
-    padding: 2px 4px;
-    border-radius: 4px;
-  }
-  .verse .word.active {
-    background: var(--gold);
-    color: #1a2b4c;
-    font-weight: 700;
-  }
-
-  .verse-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    font-size: 0.9rem;
-    font-weight: 900;
-    margin-right: 8px;
-    vertical-align: middle;
-    font-family: 'Cairo', sans-serif;
-  }
+  .verse:hover { background: rgba(212, 175, 55, 0.15); transform: translateX(-4px); }
+  .verse.playing { background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(26, 188, 156, 0.2)); border-right-color: var(--green); }
+  .verse .word { transition: background 0.2s, color 0.2s; padding: 2px 4px; border-radius: 4px; }
+  .verse .word.active { background: var(--gold); color: #1a2b4c; font-weight: 700; }
+  .verse-number { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; font-size: 0.9rem; font-weight: 900; margin-right: 8px; vertical-align: middle; font-family: 'Cairo', sans-serif; }
   @media (min-width: 1024px) { .verse-number { width: 42px; height: 42px; font-size: 1rem; } }
-
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 11px 22px;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-bottom: 18px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: all 0.3s;
-  }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-bottom: 18px; font-family: inherit; font-size: 1rem; transition: all 0.3s; }
   .back-btn:hover { transform: translateX(4px); }
-
-  .playing-indicator {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 18px;
-    background: rgba(6, 214, 160, 0.2);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--teal);
-    margin: 0 auto 15px;
-    width: fit-content;
-  }
+  .playing-indicator { display: none; align-items: center; gap: 8px; padding: 9px 18px; background: rgba(6, 214, 160, 0.2); border-radius: 20px; font-size: 0.9rem; font-weight: 700; color: var(--teal); margin: 0 auto 15px; width: fit-content; }
   .playing-indicator.active { display: inline-flex; }
-  .playing-indicator .pulse {
-    width: 10px; height: 10px;
-    background: var(--success);
-    border-radius: 50%;
-    animation: pulse 1s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.4); opacity: 0.6; }
-  }
+  .playing-indicator .pulse { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-  /* ================= QUIZ ================= */
-  .quiz-card {
-    background: var(--card-bg);
-    border-radius: 25px;
-    padding: 30px 25px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    margin-bottom: 25px;
-    border: 2px solid rgba(212, 175, 55, 0.3);
-  }
+  /* QUIZ */
+  .quiz-card { background: var(--card-bg); border-radius: 25px; padding: 30px 25px; box-shadow: var(--shadow); text-align: center; margin-bottom: 25px; border: 2px solid rgba(212, 175, 55, 0.3); }
   @media (min-width: 1024px) { .quiz-card { padding: 50px 45px; border-radius: 28px; } }
-
-  .quiz-question {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
-    font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 22px;
-    padding: 22px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(26, 188, 156, 0.08));
-    border-radius: 20px;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    line-height: 2;
-  }
+  .quiz-question { font-family: 'Amiri', serif; font-size: clamp(1.1rem, 3.5vw, 1.5rem); font-weight: 700; color: var(--teal); margin-bottom: 22px; padding: 22px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(26, 188, 156, 0.08)); border-radius: 20px; min-height: 80px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; line-height: 2; }
   @media (min-width: 1024px) { .quiz-question { font-size: 1.7rem; padding: 30px; min-height: 100px; } }
-
   body.dark-mode .quiz-question { color: var(--gold); }
-
-  .quiz-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 22px;
-  }
-
-  @media (min-width: 800px) {
-    .quiz-options {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
-      gap: 18px;
-    }
-  }
-
-  .quiz-option {
-    padding: 18px 14px;
-    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-    font-weight: 700;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(123, 47, 247, 0.12));
-    border: 3px solid transparent;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s;
-    color: var(--text-color);
-    font-family: inherit;
-    text-align: center;
-  }
+  .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 22px; }
+  @media (min-width: 800px) { .quiz-options { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto; gap: 18px; } }
+  .quiz-option { padding: 18px 14px; font-size: clamp(0.9rem, 2.5vw, 1.05rem); font-weight: 700; background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(123, 47, 247, 0.12)); border: 3px solid transparent; border-radius: 15px; cursor: pointer; transition: all 0.3s; color: var(--text-color); font-family: inherit; text-align: center; }
   @media (min-width: 1024px) { .quiz-option { padding: 22px 18px; font-size: 1.15rem; } }
-
   .quiz-option:hover { transform: translateY(-4px) scale(1.03); border-color: var(--gold); }
-  .quiz-option.correct {
-    background: linear-gradient(135deg, #06d6a0, #1abc9c);
-    color: white;
-  }
-  .quiz-option.wrong {
-    background: linear-gradient(135deg, #ef476f, #ff6b9d);
-    color: white;
-  }
+  .quiz-option.correct { background: linear-gradient(135deg, #06d6a0, #1abc9c); color: white; }
+  .quiz-option.wrong { background: linear-gradient(135deg, #ef476f, #ff6b9d); color: white; }
   .quiz-option:disabled { cursor: not-allowed; }
-
-  .quiz-stats {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 22px;
-    font-weight: 700;
-  }
+  .quiz-stats { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 22px; font-weight: 700; }
   @media (min-width: 1024px) { .quiz-stats { gap: 22px; margin-bottom: 28px; } }
-
-  .stat-badge {
-    padding: 9px 18px;
-    border-radius: 20px;
-    background: rgba(212, 175, 55, 0.15);
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-  }
+  .stat-badge { padding: 9px 18px; border-radius: 20px; background: rgba(212, 175, 55, 0.15); font-size: clamp(0.85rem, 2.5vw, 1rem); }
   @media (min-width: 1024px) { .stat-badge { font-size: 1.15rem; padding: 12px 24px; } }
-
   .stat-badge.correct-stat { background: rgba(6, 214, 160, 0.25); color: #06d6a0; }
   .stat-badge.wrong-stat { background: rgba(239, 71, 111, 0.25); color: #ef476f; }
   .stat-badge.score-stat { background: rgba(212, 175, 55, 0.3); color: #b8860b; }
   .stat-badge.timer-stat { background: rgba(123, 47, 247, 0.25); color: #7b2ff7; }
   body.dark-mode .stat-badge.score-stat { color: var(--gold); }
-
-  .quiz-mode-selector {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    margin-bottom: 25px;
-  }
-  @media (min-width: 900px) {
-    .quiz-mode-selector {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 900px;
-      margin: 0 auto 30px;
-      gap: 25px;
-    }
-  }
-
-  .quiz-mode-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 25px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: var(--shadow);
-    border: 3px solid transparent;
-  }
-  @media (min-width: 900px) { .quiz-mode-card { padding: 35px 25px; } }
-
+  .quiz-mode-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+  @media (min-width: 700px) { .quiz-mode-selector { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+  .quiz-mode-card { background: var(--card-bg); border-radius: 20px; padding: 25px 18px; text-align: center; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow); border: 3px solid transparent; }
+  @media (min-width: 900px) { .quiz-mode-card { padding: 30px 22px; } }
   .quiz-mode-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-  .quiz-mode-card.selected {
-    border-color: var(--green);
-    background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(26, 188, 156, 0.1));
-  }
-
+  .quiz-mode-card.selected { border-color: var(--green); background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(26, 188, 156, 0.1)); }
   .quiz-mode-card .icon { font-size: 2.5rem; margin-bottom: 8px; }
   @media (min-width: 900px) { .quiz-mode-card .icon { font-size: 3.5rem; } }
-
-  .quiz-mode-card .title {
-    font-family: 'Amiri', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 6px;
-  }
-  @media (min-width: 900px) { .quiz-mode-card .title { font-size: 1.5rem; } }
-
+  .quiz-mode-card .title { font-family: 'Amiri', serif; font-size: 1.15rem; font-weight: 700; color: var(--teal); margin-bottom: 6px; }
+  @media (min-width: 900px) { .quiz-mode-card .title { font-size: 1.4rem; } }
   body.dark-mode .quiz-mode-card .title { color: var(--gold); }
-
-  .quiz-mode-card .desc { font-size: 0.85rem; opacity: 0.8; }
-  @media (min-width: 900px) { .quiz-mode-card .desc { font-size: 0.95rem; } }
-
-  .surah-select {
-    width: 100%;
-    max-width: 500px;
-    display: block;
-    margin: 0 auto 20px;
-    padding: 14px;
-    border-radius: 12px;
-    border: 2px solid var(--gold);
-    background: var(--card-bg);
-    color: var(--text-color);
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+  .quiz-mode-card .desc { font-size: 0.82rem; opacity: 0.8; line-height: 1.6; }
+  .surah-select { width: 100%; max-width: 500px; display: block; margin: 0 auto 20px; padding: 14px; border-radius: 12px; border: 2px solid var(--gold); background: var(--card-bg); color: var(--text-color); font-family: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; }
   @media (min-width: 1024px) { .surah-select { padding: 16px; font-size: 1.1rem; } }
 
-  /* ================= PROGRESS ================= */
-  .progress-summary {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 22px;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-    border: 2px solid rgba(212, 175, 55, 0.3);
+  /* KIDS QUIZ */
+  .kids-quiz-container { background: var(--card-bg); border-radius: 28px; padding: 30px 20px; box-shadow: var(--shadow); border: 3px solid rgba(255, 107, 157, 0.4); text-align: center; position: relative; overflow: hidden; }
+  @media (min-width: 900px) { .kids-quiz-container { padding: 50px 45px; } }
+  .kids-quiz-container::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 10%, rgba(255,107,157,0.1), transparent 60%),
+                radial-gradient(circle at 80% 90%, rgba(212,175,55,0.1), transparent 60%);
+    pointer-events: none;
   }
-  @media (min-width: 1024px) { .progress-summary { padding: 30px; } }
-
-  .progress-bar {
-    width: 100%;
-    height: 24px;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 12px 0;
-  }
-  @media (min-width: 1024px) { .progress-bar { height: 30px; } }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green), var(--gold), #ffd700);
-    border-radius: 12px;
-    transition: width 0.8s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+  .kids-emoji-display { font-size: clamp(4rem, 12vw, 7rem); margin-bottom: 20px; display: inline-block; animation: kidsBounce 2s ease-in-out infinite; }
+  @keyframes kidsBounce { 0%,100%{ transform: translateY(0) scale(1); } 50%{ transform: translateY(-15px) scale(1.05); } }
+  .kids-question-text { font-family: 'Amiri', serif; font-size: clamp(1.15rem, 3.5vw, 1.7rem); font-weight: 700; color: var(--teal); margin-bottom: 25px; padding: 18px; background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(212,175,55,0.1)); border-radius: 20px; line-height: 1.8; }
+  body.dark-mode .kids-question-text { color: var(--gold); }
+  .kids-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 700px; margin: 0 auto; }
+  @media (min-width: 700px) { .kids-options { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+  .kids-option {
+    padding: 22px 15px;
+    font-size: clamp(1rem, 3vw, 1.25rem);
     font-weight: 900;
-    font-size: 0.85rem;
-    min-width: 40px;
+    background: linear-gradient(135deg, #fff, #fef3c7);
+    color: #1a2b4c;
+    border: 4px solid transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    box-shadow: 0 6px 0 rgba(212,175,55,0.6), 0 8px 20px rgba(0,0,0,0.15);
+    position: relative;
   }
-  @media (min-width: 1024px) { .progress-fill { font-size: 1rem; } }
+  .kids-option:hover { transform: translateY(-4px); box-shadow: 0 10px 0 rgba(212,175,55,0.6), 0 12px 25px rgba(0,0,0,0.2); }
+  .kids-option:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(212,175,55,0.6); }
+  .kids-option.correct {
+    background: linear-gradient(135deg, #06d6a0, #1abc9c);
+    color: white;
+    border-color: #06a37a;
+    animation: correctJump 0.6s;
+    box-shadow: 0 8px 0 #06a37a, 0 12px 30px rgba(6,214,160,0.5);
+  }
+  .kids-option.wrong {
+    background: linear-gradient(135deg, #ef476f, #ff6b9d);
+    color: white;
+    border-color: #c81e3c;
+    animation: wrongShake 0.5s;
+    box-shadow: 0 8px 0 #c81e3c, 0 12px 30px rgba(239,71,111,0.5);
+  }
+  .kids-option:disabled { cursor: not-allowed; }
+  @keyframes correctJump { 0%,100%{transform:translateY(0) scale(1)} 30%{transform:translateY(-15px) scale(1.15)} 60%{transform:translateY(-8px) scale(1.05)} }
+  @keyframes wrongShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-15px) rotate(-5deg)} 40%{transform:translateX(15px) rotate(5deg)} 60%{transform:translateX(-12px) rotate(-3deg)} 80%{transform:translateX(12px) rotate(3deg)} }
 
-  .surah-checklist {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
+  /* Confetti */
+  .confetti-piece {
+    position: fixed; top: -20px;
+    width: 10px; height: 14px;
+    z-index: 5000; pointer-events: none;
+    animation: confettiFall linear forwards;
   }
+  @keyframes confettiFall {
+    0% { top: -20px; transform: rotate(0deg) translateX(0); opacity: 1; }
+    100% { top: 105vh; transform: rotate(720deg) translateX(80px); opacity: 0.6; }
+  }
+  .celebration-badge {
+    position: fixed; top: 30%; left: 50%; transform: translate(-50%,-50%) scale(0);
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 900;
+    color: white;
+    padding: 25px 50px;
+    background: linear-gradient(135deg, #06d6a0, #1abc9c, #d4af37);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 8px rgba(255,255,255,0.3);
+    z-index: 5001;
+    animation: celebrationPop 1.5s ease forwards;
+    pointer-events: none;
+    text-align: center;
+    direction: rtl;
+  }
+  @keyframes celebrationPop {
+    0% { transform: translate(-50%,-50%) scale(0) rotate(-180deg); opacity: 0; }
+    30% { transform: translate(-50%,-50%) scale(1.2) rotate(10deg); opacity: 1; }
+    60% { transform: translate(-50%,-50%) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(1.5) rotate(0deg); opacity: 0; }
+  }
+  .sadness-badge {
+    position: fixed; top: 30%; left: 50%; transform: translate(-50%,-50%) scale(0);
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-weight: 900;
+    color: white;
+    padding: 22px 45px;
+    background: linear-gradient(135deg, #ef476f, #ff6b9d);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    z-index: 5001;
+    animation: sadnessPop 1.5s ease forwards;
+    pointer-events: none;
+    text-align: center;
+    direction: rtl;
+  }
+  @keyframes sadnessPop {
+    0% { transform: translate(-50%,-50%) scale(0); opacity: 0; }
+    30% { transform: translate(-50%,-50%) scale(1.1); opacity: 1; }
+    60% { transform: translate(-50%,-50%) scale(1) rotate(-3deg); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(0.8) rotate(3deg); opacity: 0; }
+  }
+
+  /* PROGRESS */
+  .progress-summary { background: var(--card-bg); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); margin-bottom: 20px; border: 2px solid rgba(212, 175, 55, 0.3); }
+  @media (min-width: 1024px) { .progress-summary { padding: 30px; } }
+  .progress-bar { width: 100%; height: 24px; background: rgba(212, 175, 55, 0.15); border-radius: 12px; overflow: hidden; margin: 12px 0; }
+  @media (min-width: 1024px) { .progress-bar { height: 30px; } }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--gold), #ffd700); border-radius: 12px; transition: width 0.8s; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 0.85rem; min-width: 40px; }
+  @media (min-width: 1024px) { .progress-fill { font-size: 1rem; } }
+  .surah-checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
   @media (min-width: 600px) { .surah-checklist { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; } }
   @media (min-width: 1024px) { .surah-checklist { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; } }
-
-  .checklist-item {
-    padding: 13px 16px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    border: 2px solid rgba(212, 175, 55, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: var(--shadow);
-  }
+  .checklist-item { padding: 13px 16px; background: var(--card-bg); border-radius: 12px; border: 2px solid rgba(212, 175, 55, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow); }
   @media (min-width: 1024px) { .checklist-item { padding: 16px 20px; } }
-
   .checklist-item:hover { transform: translateY(-3px); border-color: var(--gold); }
-  .checklist-item.done {
-    background: linear-gradient(135deg, rgba(6, 214, 160, 0.15), rgba(26, 188, 156, 0.15));
-    border-color: var(--success);
-  }
-
-  .checklist-name {
-    font-family: 'Amiri', serif;
-    font-weight: 700;
-    font-size: 1rem;
-  }
+  .checklist-item.done { background: linear-gradient(135deg, rgba(6, 214, 160, 0.15), rgba(26, 188, 156, 0.15)); border-color: var(--success); }
+  .checklist-name { font-family: 'Amiri', serif; font-weight: 700; font-size: 1rem; }
   @media (min-width: 1024px) { .checklist-name { font-size: 1.15rem; } }
-
-  .checklist-check {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: rgba(212, 175, 55, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
+  .checklist-check { width: 26px; height: 26px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
   .checklist-item.done .checklist-check { background: var(--success); color: white; }
 
-  /* ================= GAME CARD ================= */
-  .game-card {
-    background: var(--card-bg);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: var(--shadow);
-    margin-bottom: 25px;
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    text-align: center;
-  }
+  /* GAME CARD */
+  .game-card { background: var(--card-bg); border-radius: 25px; padding: 25px; box-shadow: var(--shadow); margin-bottom: 25px; border: 2px solid rgba(212, 175, 55, 0.3); text-align: center; }
   @media (min-width: 1024px) { .game-card { padding: 42px; } }
-
-  .game-title {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-    font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 15px;
-  }
+  .game-title { font-family: 'Amiri', serif; font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 700; color: var(--teal); margin-bottom: 15px; }
   @media (min-width: 1024px) { .game-title { font-size: 1.75rem; } }
-
   body.dark-mode .game-title { color: var(--gold); }
 
-  /* ================= PLANS ================= */
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 18px;
-    margin-bottom: 25px;
-  }
-  @media (min-width: 900px) {
-    .plans-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-  }
-  @media (min-width: 1440px) {
-    .plans-grid { grid-template-columns: repeat(4, 1fr); gap: 22px; }
-  }
-
-  .plan-card {
-    background: var(--card-bg);
-    border-radius: 22px;
-    padding: 24px;
-    box-shadow: var(--shadow);
-    border: 3px solid rgba(212, 175, 55, 0.3);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
+  /* PLANS */
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 25px; }
+  @media (min-width: 900px) { .plans-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; } }
+  @media (min-width: 1440px) { .plans-grid { grid-template-columns: repeat(4, 1fr); gap: 22px; } }
+  .plan-card { background: var(--card-bg); border-radius: 22px; padding: 24px; box-shadow: var(--shadow); border: 3px solid rgba(212, 175, 55, 0.3); cursor: pointer; transition: all 0.3s; }
   @media (min-width: 900px) { .plan-card { padding: 32px 26px; } }
-
   .plan-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4); }
-  .plan-card.selected {
-    border-color: var(--success);
-    background: linear-gradient(135deg, rgba(6, 214, 160, 0.08), rgba(26, 188, 156, 0.08));
-  }
-
+  .plan-card.selected { border-color: var(--success); background: linear-gradient(135deg, rgba(6, 214, 160, 0.08), rgba(26, 188, 156, 0.08)); }
   .plan-emoji { font-size: 2.5rem; margin-bottom: 8px; }
   @media (min-width: 900px) { .plan-emoji { font-size: 3.5rem; } }
-
-  .plan-name {
-    font-family: 'Amiri', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 8px;
-  }
+  .plan-name { font-family: 'Amiri', serif; font-size: 1.4rem; font-weight: 700; color: var(--teal); margin-bottom: 8px; }
   @media (min-width: 900px) { .plan-name { font-size: 1.7rem; } }
-
   body.dark-mode .plan-name { color: var(--gold); }
-
   .plan-desc { font-size: 0.9rem; opacity: 0.85; margin-bottom: 12px; line-height: 1.8; }
   @media (min-width: 900px) { .plan-desc { font-size: 1rem; } }
-
   .plan-stats { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .plan-stat {
-    padding: 6px 12px;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 10px;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
+  .plan-stat { padding: 6px 12px; background: rgba(212, 175, 55, 0.15); border-radius: 10px; font-size: 0.8rem; font-weight: 700; }
   @media (min-width: 900px) { .plan-stat { font-size: 0.9rem; padding: 8px 14px; } }
-
-  .plan-detail {
-    background: var(--card-bg);
-    border-radius: 22px;
-    padding: 22px;
-    box-shadow: var(--shadow);
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    margin-bottom: 20px;
-  }
+  .plan-detail { background: var(--card-bg); border-radius: 22px; padding: 22px; box-shadow: var(--shadow); border: 2px solid rgba(212, 175, 55, 0.3); margin-bottom: 20px; }
   @media (min-width: 1024px) { .plan-detail { padding: 40px; } }
-
-  .plan-detail h3 {
-    font-family: 'Amiri', serif;
-    font-size: 1.5rem;
-    color: var(--teal);
-    text-align: center;
-    margin-bottom: 15px;
-  }
+  .plan-detail h3 { font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--teal); text-align: center; margin-bottom: 15px; }
   @media (min-width: 1024px) { .plan-detail h3 { font-size: 2rem; } }
-
   body.dark-mode .plan-detail h3 { color: var(--gold); }
-
   .plan-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-  .plan-table th, .plan-table td {
-    padding: 10px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    text-align: right;
-    font-size: 0.9rem;
-  }
-  @media (min-width: 1024px) {
-    .plan-table th, .plan-table td { padding: 14px 18px; font-size: 1rem; }
-  }
+  .plan-table th, .plan-table td { padding: 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); text-align: right; font-size: 0.9rem; }
+  @media (min-width: 1024px) { .plan-table th, .plan-table td { padding: 14px 18px; font-size: 1rem; } }
+  .plan-table th { background: rgba(212, 175, 55, 0.15); font-family: 'Amiri', serif; font-weight: 700; }
 
-  .plan-table th {
-    background: rgba(212, 175, 55, 0.15);
-    font-family: 'Amiri', serif;
-    font-weight: 700;
-  }
-
-  /* ================= ORDER GAME ================= */
-  .order-area {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    padding: 22px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(26, 188, 156, 0.08));
-    border-radius: 18px;
-    margin-bottom: 20px;
-    min-height: 80px;
-    border: 2px dashed rgba(212, 175, 55, 0.3);
-  }
+  /* ORDER GAME */
+  .order-area { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 22px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(26, 188, 156, 0.08)); border-radius: 18px; margin-bottom: 20px; min-height: 80px; border: 2px dashed rgba(212, 175, 55, 0.3); }
   @media (min-width: 1024px) { .order-area { padding: 32px; gap: 14px; min-height: 110px; } }
-
-  .word-chip {
-    padding: 12px 18px;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    border-radius: 12px;
-    font-family: 'Amiri', serif;
-    font-size: clamp(1rem, 2.8vw, 1.3rem);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-    user-select: none;
-  }
+  .word-chip { padding: 12px 18px; background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; border-radius: 12px; font-family: 'Amiri', serif; font-size: clamp(1rem, 2.8vw, 1.3rem); font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); user-select: none; }
   @media (min-width: 1024px) { .word-chip { padding: 16px 26px; font-size: 1.5rem; } }
-
   .word-chip:hover { transform: translateY(-3px) scale(1.05); }
 
-  /* ================= FLOATING BUTTONS ================= */
-  .floating-buttons {
-    position: fixed;
-    bottom: 22px;
-    left: 22px;
+  /* GARDEN */
+  .garden-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; margin-bottom: 30px; }
+  @media (min-width: 900px) { .garden-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; } }
+  @media (min-width: 1440px) { .garden-grid { grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; } }
+  .garden-card {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border-radius: 24px;
+    padding: 22px 18px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    z-index: 1000;
+    justify-content: space-between;
   }
+  .garden-card::after {
+    content: ''; position: absolute; top: -50%; right: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+    animation: gardenShine 6s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes gardenShine { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+  .garden-card:hover { transform: translateY(-10px) rotate(-2deg); border-color: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+  .garden-card .garden-num { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(212,175,55,0.5); z-index: 2; }
+  .garden-scene { font-size: 2.6rem; text-align: center; margin: 8px 0 12px; letter-spacing: 6px; animation: sceneFloat 3s ease-in-out infinite; }
+  @keyframes sceneFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .garden-card-title { font-family: 'Amiri', serif; font-size: 1.35rem; font-weight: 700; color: #1a2b4c; text-align: center; margin-bottom: 6px; }
+  .garden-card-hint { text-align: center; font-size: 0.8rem; color: #5a3d1f; opacity: 0.85; font-weight: 700; }
+  /* حالات لونية للبطاقات */
+  .garden-card.g1 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+  .garden-card.g2 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+  .garden-card.g3 { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); }
+  .garden-card.g4 { background: linear-gradient(135deg, #ffd3a5 0%, #fd6585 100%); }
+  .garden-card.g5 { background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%); }
+  .garden-card.g6 { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); }
 
-  .fab {
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    transition: all 0.3s;
-    position: relative;
-    color: white;
-    text-decoration: none;
-  }
-  @media (min-width: 1024px) {
-    .fab { width: 64px; height: 64px; font-size: 1.7rem; }
-  }
+  .garden-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 3000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(6px); }
+  .garden-modal.show { display: flex; }
+  .garden-modal-content { background: linear-gradient(160deg, #fff9e6, #ffe4b5); color: #1a2b4c; border-radius: 28px; max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 30px; border: 4px solid var(--gold); box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative; }
+  .garden-modal-close { position: absolute; top: 12px; left: 12px; width: 42px; height: 42px; border-radius: 50%; background: #ef476f; color: white; border: none; font-size: 1.3rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s; }
+  .garden-modal-close:hover { transform: scale(1.1) rotate(90deg); }
+  .garden-story-scene { font-size: 3.2rem; text-align: center; margin: 15px 0 20px; letter-spacing: 8px; animation: sceneFloat 3s ease-in-out infinite; }
+  .garden-story-title { font-family: 'Amiri', serif; font-size: 1.9rem; font-weight: 900; text-align: center; color: #1e5fa8; margin-bottom: 12px; }
+  .garden-story-body { font-family: 'Amiri', serif; font-size: 1.25rem; line-height: 2.1; text-align: justify; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 18px; border-right: 6px solid var(--gold); margin-bottom: 18px; }
+  .garden-story-lesson { text-align: center; font-family: 'Amiri', serif; font-size: 1.15rem; font-weight: 700; background: linear-gradient(135deg, #06d6a0, #1abc9c); color: white; padding: 16px; border-radius: 18px; box-shadow: 0 8px 20px rgba(6,214,160,0.4); }
 
+  /* FLOATING BUTTONS */
+  .floating-buttons { position: fixed; bottom: 22px; left: 22px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+  .fab { width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s; position: relative; color: white; text-decoration: none; }
+  @media (min-width: 1024px) { .fab { width: 64px; height: 64px; font-size: 1.7rem; } }
   .fab:hover { transform: scale(1.1) rotate(5deg); }
   .fab:active { transform: scale(0.95); }
-
   .fab-language { background: linear-gradient(135deg, #7b2ff7, #ffd700); }
   .fab-theme { background: linear-gradient(135deg, #4facfe, #43e97b); }
   .fab-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
   .fab-user { background: linear-gradient(135deg, #1abc9c, #06d6a0); }
-
-  .fab-label {
-    position: absolute;
-    right: 74px;
-    background: rgba(0,0,0,0.85);
-    color: white;
-    padding: 7px 14px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-  }
-
+  .fab-label { position: absolute; right: 74px; background: rgba(0,0,0,0.85); color: white; padding: 7px 14px; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: all 0.3s; }
   .fab:hover .fab-label { opacity: 1; right: 80px; }
+  @media (max-width: 600px) { .fab { width: 52px; height: 52px; font-size: 1.4rem; } .fab-label { display: none; } }
 
-  @media (max-width: 600px) {
-    .fab { width: 52px; height: 52px; font-size: 1.4rem; }
-    .fab-label { display: none; }
-  }
-
-  /* ================= TOAST ================= */
-  .toast {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    color: #1a2b4c;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: 700;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    transition: transform 0.4s ease;
-    z-index: 2000;
-    font-size: 0.95rem;
-    text-align: center;
-    max-width: 90vw;
-  }
+  /* TOAST */
+  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(100px); background: linear-gradient(135deg, var(--gold), #ffd700); color: #1a2b4c; padding: 14px 28px; border-radius: 12px; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform 0.4s ease; z-index: 2000; font-size: 0.95rem; text-align: center; max-width: 90vw; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* ================= FOOTER ================= */
-  footer {
-    text-align: center;
-    padding: 30px 15px;
-    color: #fff;
-    opacity: 0.95;
-    font-size: 0.9rem;
-    position: relative;
-    z-index: 1;
-    line-height: 2;
-  }
+  /* FOOTER */
+  footer { text-align: center; padding: 30px 15px; color: #fff; opacity: 0.95; font-size: 0.9rem; position: relative; z-index: 1; line-height: 2; }
   @media (min-width: 1024px) { footer { font-size: 1rem; padding: 40px 20px; } }
-
-  footer .footer-card {
-    display: inline-block;
-    background: rgba(0,0,0,0.2);
-    padding: 18px 30px;
-    border-radius: 18px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    max-width: 650px;
-    margin: 0 auto;
-  }
+  footer .footer-card { display: inline-block; background: rgba(0,0,0,0.2); padding: 18px 30px; border-radius: 18px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); max-width: 650px; margin: 0 auto; }
   @media (min-width: 1024px) { footer .footer-card { padding: 22px 40px; } }
-
-  footer .footer-title {
-    font-family: 'Amiri', serif;
-    font-size: 1.1rem;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
+  footer .footer-title { font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 8px; }
   @media (min-width: 1024px) { footer .footer-title { font-size: 1.35rem; } }
-
   footer a { color: var(--gold); text-decoration: none; font-weight: 700; }
   footer a:hover { text-decoration: underline; }
-
-  .action-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 15px;
-  }
+  .action-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
   @media (min-width: 1024px) { .action-buttons { gap: 16px; margin-top: 20px; } }
-
-  .kid-friendly {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 22px;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 15px;
-    margin-bottom: 18px;
-    font-size: 0.95rem;
-    font-weight: 700;
-  }
+  .kid-friendly { display: flex; align-items: center; gap: 10px; padding: 14px 22px; background: rgba(212, 175, 55, 0.15); border-radius: 15px; margin-bottom: 18px; font-size: 0.95rem; font-weight: 700; }
   @media (min-width: 1024px) { .kid-friendly { font-size: 1.05rem; padding: 16px 26px; } }
 
-  /* ================= MODAL ================= */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 3000;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); }
   .modal-overlay.show { display: flex; }
-
-  .modal {
-    background: var(--card-bg);
-    border-radius: 25px;
-    padding: 30px;
-    max-width: 480px;
-    width: 100%;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    border: 3px solid var(--gold);
-    text-align: center;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
+  .modal { background: var(--card-bg); border-radius: 25px; padding: 30px; max-width: 480px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.5); border: 3px solid var(--gold); text-align: center; max-height: 90vh; overflow-y: auto; }
   @media (min-width: 700px) { .modal { max-width: 560px; padding: 40px; } }
-
-  .modal h3 {
-    font-family: 'Amiri', serif;
-    font-size: 1.6rem;
-    color: var(--teal);
-    margin-bottom: 18px;
-  }
+  .modal h3 { font-family: 'Amiri', serif; font-size: 1.6rem; color: var(--teal); margin-bottom: 18px; }
   @media (min-width: 700px) { .modal h3 { font-size: 1.85rem; } }
-
   body.dark-mode .modal h3 { color: var(--gold); }
-
-  .modal label {
-    display: block;
-    text-align: right;
-    font-weight: 700;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-  }
-
-  .modal input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 2px solid rgba(212, 175, 55, 0.4);
-    background: rgba(255,255,255,0.05);
-    color: var(--text-color);
-    font-family: inherit;
-    font-size: 1rem;
-    margin-bottom: 15px;
-  }
-
-  .modal input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    border-radius: 12px;
-    border: 2px dashed rgba(212, 175, 55, 0.5);
-    background: transparent;
-    color: var(--text-color);
-    font-family: inherit;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-
-  .avatar-preview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: #1a2b4c;
-    overflow: hidden;
-    border: 4px solid var(--gold);
-  }
+  .modal label { display: block; text-align: right; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  .modal input[type="text"] { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid rgba(212, 175, 55, 0.4); background: rgba(255,255,255,0.05); color: var(--text-color); font-family: inherit; font-size: 1rem; margin-bottom: 15px; }
+  .modal input[type="file"] { width: 100%; padding: 8px; border-radius: 12px; border: 2px dashed rgba(212, 175, 55, 0.5); background: transparent; color: var(--text-color); font-family: inherit; font-size: 0.85rem; margin-bottom: 15px; cursor: pointer; }
+  .avatar-preview { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 15px; background: linear-gradient(135deg, var(--gold), #ffd700); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #1a2b4c; overflow: hidden; border: 4px solid var(--gold); }
   .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* ================= REPORT ================= */
-  .report-card {
-    background: #fff;
-    color: #1a2b4c;
-    border-radius: 20px;
-    padding: 30px;
-    border: 3px solid var(--gold);
-    margin-bottom: 20px;
-  }
+  /* REPORT */
+  .report-card { background: #fff; color: #1a2b4c; border-radius: 20px; padding: 30px; border: 3px solid var(--gold); margin-bottom: 20px; }
   @media (min-width: 1024px) { .report-card { padding: 45px; } }
-
-  .report-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--gold);
-    margin-bottom: 15px;
-  }
-
-  .report-avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), #ffd700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: #1a2b4c;
-    overflow: hidden;
-    border: 3px solid var(--gold);
-    flex-shrink: 0;
-  }
+  .report-header { display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 2px solid var(--gold); margin-bottom: 15px; }
+  .report-avatar { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #ffd700); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #1a2b4c; overflow: hidden; border: 3px solid var(--gold); flex-shrink: 0; }
   .report-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-  .report-info h3 {
-    font-family: 'Amiri', serif;
-    font-size: 1.5rem;
-    color: #1e5fa8;
-    margin-bottom: 4px;
-  }
+  .report-info h3 { font-family: 'Amiri', serif; font-size: 1.5rem; color: #1e5fa8; margin-bottom: 4px; }
   @media (min-width: 1024px) { .report-info h3 { font-size: 1.75rem; } }
-
   .report-info .date { font-size: 0.85rem; opacity: 0.75; }
-
   .report-body { font-size: 0.95rem; line-height: 2; }
   @media (min-width: 1024px) { .report-body { font-size: 1.05rem; } }
-
   .report-body .label { font-weight: 700; color: #1e5fa8; }
-
   .report-surahs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-
-  .report-surah-tag {
-    padding: 4px 10px;
-    background: #eaf3fb;
-    border: 1px solid #1e5fa8;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #1e5fa8;
-  }
+  .report-surah-tag { padding: 4px 10px; background: #eaf3fb; border: 1px solid #1e5fa8; border-radius: 12px; font-size: 0.8rem; font-weight: 700; color: #1e5fa8; }
   @media (min-width: 1024px) { .report-surah-tag { font-size: 0.9rem; padding: 6px 14px; } }
-
-  .report-footer {
-    margin-top: 18px;
-    padding-top: 12px;
-    border-top: 1px dashed #ccc;
-    font-size: 0.75rem;
-    text-align: center;
-    color: #666;
-  }
-
+  .report-footer { margin-top: 18px; padding-top: 12px; border-top: 1px dashed #ccc; font-size: 0.75rem; text-align: center; color: #666; }
   @media print {
     body * { visibility: hidden; }
     .report-card, .report-card * { visibility: visible; }
@@ -1326,15 +544,20 @@
     
     <div id="quizSetup">
       <div class="quiz-mode-selector">
+        <div class="quiz-mode-card" id="modeKids" onclick="selectQuizMode('kids')">
+          <div class="icon">🧒</div>
+          <div class="title">المستوى الأول</div>
+          <div class="desc">اختبار تفاعلي للصغار<br>مع تشجيع بصوتك اسمك!</div>
+        </div>
         <div class="quiz-mode-card" id="modeSurah" onclick="selectQuizMode('surah')">
           <div class="icon">📗</div>
           <div class="title">اختبار سورة</div>
-          <div class="desc">اختر سورة واختبر معرفتك بها</div>
+          <div class="desc">المستوى الثاني<br>مؤقت لكل سؤال</div>
         </div>
         <div class="quiz-mode-card" id="modeFull" onclick="selectQuizMode('full')">
           <div class="icon">📚</div>
-          <div class="title">اختبار شامل للجزء</div>
-          <div class="desc">20 سؤالاً • 15 دقيقة • نتيجة فورية</div>
+          <div class="title">اختبار شامل</div>
+          <div class="desc">المستوى الثاني<br>30 سؤالاً • مؤقت لكل سؤال</div>
         </div>
       </div>
       <div id="surahSelectWrap" style="display:none;">
@@ -1351,12 +574,27 @@
         <span class="stat-badge correct-stat">✅ <span id="quizCorrect">0</span></span>
         <span class="stat-badge wrong-stat">❌ <span id="quizWrong">0</span></span>
         <span class="stat-badge score-stat">⭐ <span id="quizScore">0</span></span>
-        <span class="stat-badge timer-stat" id="timerBadge">⏱️ <span id="quizTimer">15:00</span></span>
+        <span class="stat-badge timer-stat" id="timerBadge">⏱️ <span id="quizTimer">30</span></span>
       </div>
       <div class="quiz-card">
         <div class="quiz-question" id="quizQuestion">—</div>
         <div class="quiz-options" id="quizOptions"></div>
         <div style="text-align:center; margin-top:10px; font-weight:700;" id="quizProgress"></div>
+      </div>
+    </div>
+
+    <!-- اختبار الأطفال -->
+    <div id="kidsQuizPlay" style="display:none;">
+      <div class="quiz-stats">
+        <span class="stat-badge correct-stat">✅ <span id="kidsCorrect">0</span></span>
+        <span class="stat-badge wrong-stat">❌ <span id="kidsWrong">0</span></span>
+        <span class="stat-badge score-stat">⭐ <span id="kidsScore">0</span></span>
+      </div>
+      <div class="kids-quiz-container">
+        <div class="kids-emoji-display" id="kidsEmoji">🌟</div>
+        <div class="kids-question-text" id="kidsQuestion">—</div>
+        <div class="kids-options" id="kidsOptions"></div>
+        <div style="text-align:center; margin-top:15px; font-weight:700; font-family:Cairo;" id="kidsProgress"></div>
       </div>
     </div>
 
@@ -1409,7 +647,6 @@
   <!-- قسم تتبع الحفظ -->
   <div class="section" id="section-progress">
     <h2 class="section-title"><span class="emoji">📊</span> <span id="titleProgress">تتبع حفظي</span></h2>
-    
     <div id="userCard" class="progress-summary" style="display:flex; align-items:center; gap:15px; flex-wrap:wrap; justify-content:center;">
       <div class="report-avatar" id="userAvatar">👤</div>
       <div style="text-align:right; flex:1; min-width:180px;">
@@ -1418,19 +655,16 @@
       </div>
       <button class="btn btn-teal btn-sm" onclick="openRegisterModal()">✏️ تسجيل/تعديل بياناتي</button>
     </div>
-
     <div class="progress-summary">
       <div style="font-size:1.1rem; font-weight:700; margin-bottom:10px;"><span id="progressText">حفظت 0 من 37 سورة</span></div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%">0%</div></div>
     </div>
     <div class="surah-checklist" id="surahChecklist"></div>
-
     <div style="margin-top:25px;">
       <div class="action-buttons">
         <button class="btn btn-gold" onclick="generateReport()">📄 توليد تقرير الحفظ</button>
       </div>
     </div>
-
     <div id="reportWrap" style="display:none; margin-top:20px;">
       <div class="report-card" id="reportCard"></div>
       <div class="action-buttons">
@@ -1439,6 +673,24 @@
         <button class="btn btn-purple" onclick="shareReport()">📤 مشاركة</button>
       </div>
     </div>
+  </div>
+
+  <!-- قسم حديقة الحفاظ -->
+  <div class="section" id="section-garden">
+    <h2 class="section-title"><span class="emoji">🌸</span> <span id="titleGarden">حديقة الحفاظ</span></h2>
+    <div class="kid-friendly"><span>📖</span><span>اضغط على أي بطاقة لتقرأ القصة الكرتونية للسورة وتتعلم الدرس</span></div>
+    <div class="garden-grid" id="gardenGrid"></div>
+  </div>
+</div>
+
+<!-- Modal القصة -->
+<div class="garden-modal" id="gardenModal">
+  <div class="garden-modal-content">
+    <button class="garden-modal-close" onclick="closeGardenModal()">✕</button>
+    <div class="garden-story-scene" id="storyScene">🌟</div>
+    <div class="garden-story-title" id="storyTitle">—</div>
+    <div class="garden-story-body" id="storyBody">—</div>
+    <div class="garden-story-lesson" id="storyLesson">—</div>
   </div>
 </div>
 
@@ -1461,7 +713,6 @@
   <a href="https://wa.me/201018415991" target="_blank" class="fab fab-whatsapp" title="تواصل عبر واتساب">💬<span class="fab-label" id="labelWhats">تواصل معنا</span></a>
 </div>
 
-<!-- Modal تسجيل البيانات -->
 <div class="modal-overlay" id="registerModal">
   <div class="modal">
     <h3>👤 تسجيل بيانات الحافظ</h3>
@@ -1530,6 +781,71 @@ const PLANS = [
   { id: 'hafiz', emoji: '👑', name: 'خطة الحافظ', daily: 'سورة', desc: 'للحفاظ: سورة كاملة يومياً مع المراجعة الشاملة', days: 37, level: 'حافظ' }
 ];
 
+// ============ قصص حديقة الحفاظ ============
+const STORIES = {
+  78: { scene: '☁️🌍⛰️', title: 'النبأ العظيم', body: 'في يوم القيامة، سأل الكفار بعضهم: ما هذا النبأ العظيم الذي يتحدث عنه محمد؟ فأخبرهم الله أنه حق لا شك فيه! في ذلك اليوم تُفتح السماء أبواباً، وتُسيَّر الجبال كالسراب، ويأتي الناس أفواجاً للحساب. أما المتقون فلهم حدائق وأعناب، لا يسمعون فيها لغواً ولا كذاباً.', lesson: '🌟 يوم القيامة حق، فاستعدوا له بالعمل الصالح.' },
+  79: { scene: '⚡🌠💫', title: 'الملائكة النازعات', body: 'أقسم الله بالملائكة التي تنزع أرواح الكفار بشدة، وتنشط أرواح المؤمنين بلطف. وفي يوم القيامة، ترتجف الأرض وتتبعها الرادفة. يرى الإنسان ما سعى، وتُبرَّز الجحيم لمن يرى. أما من خاف ربه ونهى نفسه عن الهوى، فالجنة مأواه.', lesson: '🌟 من خاف الله ونهى نفسه عن المعصية، فالجنة داره.' },
+  80: { scene: '🌾👨‍🦯📖', title: 'النبي والأعمى', body: 'جاء رجل أعمى إلى النبي ﷺ يسأله ويتعلم، وكان النبي مشغولاً بعظماء قريش. فانشغل عنه وأعرض. فنزل العتاب من الله: عبس وتولى أن جاءه الأعمى! ثم أخبر الله أن القرآن تذكرة، وأن الإنسان خُلق من نطفة ضعيفة.', lesson: '🌟 لا تفرّق بين الناس، فكل إنسان يستحق اهتمامك.' },
+  81: { scene: '☀️🌑⭐', title: 'الشمس والقمر', body: 'إذا الشمس كُوِّرت وانطفأت، والنجوم تساقطت، والجبال سُيِّرت، والبحار اشتعلت، والنفوس زُوِّجت — علمت كل نفس ما أحضرت من خير أو شر. إنه القرآن قول رسول كريم، ليس قول شيطان رجيم!', lesson: '🌟 اعمل ليوم تُكشف فيه الأعمال.' },
+  82: { scene: '🌌💫🌠', title: 'انفطار السماء', body: 'إذا السماء انفطرت وتشققت، والكواكب انتثرت، والبحار فُجِّرت، والقبور بُعثرت — علمت كل نفس ما قدمت وأخرت. يا أيها الإنسان ما غرك بربك الكريم؟ إن عليك حافظين كراماً كاتبين يعلمون ما تفعل.', lesson: '🌟 كل عمل تكتبه الملائكة، فأحسن عملك.' },
+  83: { scene: '⚖️💰📉', title: 'التجار الغاشون', body: 'ويل للتجار الذين يستوفون لأنفسهم، فإذا كالوا للناس ينقصون! ألا يظنون أنهم مبعوثون ليوم عظيم؟ إن الأبرار في نعيم على الأرائك ينظرون، وإن الفجار في جحيم.', lesson: '🌟 كن أميناً في البيع والشراء، ولا تغش أحداً.' },
+  84: { scene: '🌠🌌✨', title: 'انشقاق السماء', body: 'إذا السماء انشقت وأذنت لربها، والأرض مدت وألقت ما فيها — استقبل الإنسان ربه كادحاً. من أخذ كتابه بيمينه فسوف يحاسب حساباً يسيراً ويعود لأهله مسروراً. ومن أخذ كتابه وراء ظهره فسوف يدعو ثبوراً.', lesson: '🌟 اسعَ للخير كي تأخذ كتابك بيمينك.' },
+  85: { scene: '🌟🔥⛏️', title: 'أصحاب الأخدود', body: 'حفر الكفار أخدوداً عظيماً وأشعلوا فيه النار، وألقوا المؤمنين فيها وهم على ذلك شهود! لكن الذين آمنوا لهم جنات تجري من تحتها الأنهار. إن بطش ربك لشديد، وهو الغفور الودود ذو العرش المجيد.', lesson: '🌟 ثبت على دينك ولو كلفك ذلك حياتك.' },
+  86: { scene: '🌙⭐🌌', title: 'النجم الثاقب', body: 'أقسم الله بالسماء والنجم الثاقب الذي يخترق الظلام بنوره! وأخبر أن كل نفس عليها حافظ يراقبها. فليتأمل الإنسان: من أي شيء خُلق؟ من ماء دافق يخرج من بين الصلب والترائب. إنه لقادر على رجعه!', lesson: '🌟 تأمل في خلقك تعرف عظمة خالقك.' },
+  87: { scene: '👑🌿🍃', title: 'سبّح اسم ربك', body: 'سبّح اسم ربك الأعلى الذي خلق فسوّى، وقدّر فهدى، وأخرج المرعى الأخضر ثم جعله هشيماً! سنقرئك فلا تنسى، فذكّر حيث نفعت الذكرى. قد أفلح من تزكى وذكر ربه فصلى.', lesson: '🌟 سبّح الله دائماً، واذكر نعمه عليك.' },
+  88: { scene: '🔥💧🌸', title: 'يوم الغاشية', body: 'هل جاءك حديث الغاشية؟ يوم يغشى الناس بأهواله. وجوه خاشعة عاملة ناصبة، تصلى ناراً حامية. ووجوه ناعمة في جنة عالية. أفلا ينظرون إلى الإبل كيف خلقت، وإلى السماء كيف رُفعت، وإلى الجبال كيف نُصبت؟', lesson: '🌟 تأمل في خلق الله، واعمل للآخرة.' },
+  89: { scene: '🌅🏛️🐫', title: 'عاد وثمود', body: 'أقسم الله بالفجر وبليالٍ عشر. ألم تر كيف فعل ربك بعادٍ ذات العماد التي لم يُخلق مثلها في البلاد، وثمود الذين نحتوا الصخر، وفرعون ذي الأوتاد؟ إن ربك لبالمرصاد. يا أيتها النفس المطمئنة ارجعي إلى ربك راضية مرضية!', lesson: '🌟 التواضع لله، فالجبارون هلكوا.' },
+  90: { scene: '🏙️🕋🛤️', title: 'البلد الأمين', body: 'أقسم الله بمكة المكرمة. خلقنا الإنسان في كبد، يظن أن لن يقدر عليه أحد. أعطيناه عينين ولساناً وشفتين، وأظهرنا له الطريقين: الخير والشر. فليقتحم العقبة: عتق رقبة، أو إطعام في يوم ذي مسغبة، أو إعانة يتيم.', lesson: '🌟 افعل الخير ولو كان صغيراً.' },
+  91: { scene: '🌞🐪⛰️', title: 'قصة الناقة', body: 'أقسم الله بالشمس وضحاها، والقمر إذا تلاها. قد أفلح من زكى نفسه، وخاب من دسّاها. كذبت ثمود بناقتها فأرسل الله عليهم عذاباً، فدمّرهم جميعاً وما نجا منهم أحد.', lesson: '🌟 احذر التكذيب، فالجزاء سريع.' },
+  92: { scene: '🌃💫🌟', title: 'الليل والنهار', body: 'أقسم الله بالليل الذي يغشى، والنهار الذي يتجلى. إن سعيكم لشتى: من أعطى واتقى وصدّق بالحسنى، يسر الله له اليسرى. ومن بخل واستغنى وكذّب، يسر الله له العسرى.', lesson: '🌟 العطاء ييسّر لك طريق الخير.' },
+  93: { scene: '☀️💛🤲', title: 'الضحى', body: 'أقسم الله بالضحى وبالليل إذا سجى: ما ودّعك ربك وما قلى! لقد كنت يتيماً فآواك، وضالاً فهداك، وعائلاً فأغناك. فأما اليتيم فلا تقهر، وأما السائل فلا تنهر، وأما بنعمة ربك فحدث.', lesson: '🌟 لا تحزن، فالله معك دائماً.' },
+  94: { scene: '💚🌿✨', title: 'انشراح الصدر', body: 'ألم نشرح لك صدرك؟ ووضعنا عنك وزرك، ورفعنا لك ذكرك. فإن مع العسر يسراً، إن مع العسر يسراً. فإذا فرغت من عمل فانصب في العبادة، وإلى ربك فارغب.', lesson: '🌟 بعد كل ضيق فرج من الله.' },
+  95: { scene: '🌿🫒🏔️', title: 'التين والزيتون', body: 'أقسم الله بالتين والزيتون، وبطور سينين، وبالبلد الأمين. لقد خلقنا الإنسان في أحسن تقويم، ثم رددناه أسفل سافلين، إلا الذين آمنوا وعملوا الصالحات فلهم أجر غير ممنون.', lesson: '🌟 كن من المؤمنين الصالحين لترتفع درجاتك.' },
+  96: { scene: '📖✍️🕌', title: 'أول ما نزل', body: 'أول ما نزل من القرآن: اقرأ باسم ربك الذي خلق! خلق الإنسان من علق. اقرأ وربك الأكرم، الذي علّم بالقلم، علّم الإنسان ما لم يعلم. فطلب العلم فريضة على كل مسلم.', lesson: '🌟 اقرأ وتعلم، فالعلم نور.' },
+  97: { scene: '🌙✨🕋', title: 'ليلة القدر', body: 'إنا أنزلناه في ليلة القدر! ليلة خير من ألف شهر، تنزّل الملائكة والروح فيها بإذن ربهم من كل أمر، سلامٌ هي حتى مطلع الفجر. فأحياها بالصلاة والذكر والدعاء.', lesson: '🌟 التمس ليلة القدر في العشر الأواخر.' },
+  98: { scene: '🕊️📜✨', title: 'البينة', body: 'لم يكن أهل الكتاب منفكين حتى تأتيهم البينة، رسولٌ من الله يتلو صحفاً مطهرة. وما أُمروا إلا ليعبدوا الله مخلصين له الدين، ويقيموا الصلاة، ويؤتوا الزكاة — ذلك دين القيمة.', lesson: '🌟 أخلص عبادتك لله وحده.' },
+  99: { scene: '🌍💥📢', title: 'زلزلة الأرض', body: 'إذا زلزلت الأرض زلزالها، وأخرجت ما في جوفها، وقال الإنسان: ما لها؟! تحدث الأرض أخبارها. يومئذٍ يصدر الناس أشتاتاً ليروا أعمالهم. فمن يعمل مثقال ذرة خيراً يره، ومن يعمل شراً يره.', lesson: '🌟 لا تحقرن من الخير شيئاً.' },
+  100: { scene: '🐎💨🌅', title: 'الخيل العادية', body: 'أقسم الله بالخيل التي تعدو في الصباح، فأثارت الغبار، فوسطن جمع الأعداء. إن الإنسان لربه لكنود — كثير الجحود! وإنه لحب الخير لشديد. أفلا يعلم إذا بُعثر ما في القبور وحُصِّل ما في الصدور؟', lesson: '🌟 لا تكن جاحداً لنعم الله.' },
+  101: { scene: '💥⚡📯', title: 'يوم القارعة', body: 'يوم القارعة! ما القارعة؟ يوم يكون الناس كالفراش المبثوث، والجبال كالعهن المنفوش. فمن ثقلت موازينه فهو في عيشة راضية، ومن خفت موازينه فأمه هاوية، نارٌ حامية.', lesson: '🌟 اعمل لزيادة حسناتك.' },
+  102: { scene: '💰⛔⏳', title: 'التكاثر', body: 'ألهاكم التكاثر — شغلكم الجمع بالأموال — حتى زرتم المقابر! كلا سوف تعلمون! لترون الجحيم عين اليقين، ثم لتسألُنَّ عن النعيم. فلا تنشغلوا بالدنيا عن الآخرة.', lesson: '🌟 لن تسأل عن المال فقط، بل عن كل نعمة.' },
+  103: { scene: '⏳🤝📿', title: 'العصر', body: 'أقسم الله بالعصر: إن الإنسان لفي خسر! إلا الذين آمنوا وعملوا الصالحات، وتواصوا بالحق، وتواصوا بالصبر. هذه وصية جامعة لكل خير.', lesson: '🌟 التواصي بالخير نجاة.' },
+  104: { scene: '😠💢🔥', title: 'الهمزة واللمزة', body: 'ويل لكل همزة لمزة! الذي جمع مالاً وعدّده، يحسب أن ماله أخلده. كلا! لينبذن في الحطمة، نار الله الموقدة التي تطلع على الأفئدة. احذر الغيبة والسخرية.', lesson: '🌟 لا تسخر من أحد ولا تغتبه.' },
+  105: { scene: '🐘🐦💨', title: 'أصحاب الفيل', body: 'ألم تر كيف فعل ربك بأصحاب الفيل؟ أرادوا هدم الكعبة، فجعل الله كيدهم في تضليل، وأرسل عليهم طيراً أبابيل، ترميهم بحجارة من سجيل، فجعلهم كعصف مأكول!', lesson: '🌟 الله يحمي بيته وعباده الصالحين.' },
+  106: { scene: '🕋🐪❄️', title: 'رحلة قريش', body: 'لإيلاف قريش، إيلافهم رحلة الشتاء والصيف. فليعبدوا رب هذا البيت، الذي أطعمهم من جوع وآمنهم من خوف. احمدوا نعم الله عليكم.', lesson: '🌟 اشكر الله على نعمة الأمن والطعام.' },
+  107: { scene: '🤲👤🚫', title: 'صفات المكذبين', body: 'أرأيت الذي يكذب بالدين؟ ذلك الذي يدعّ اليتيم، ولا يحض على طعام المسكين. فويل للمصلين الذين هم عن صلاتهم ساهون، الذين هم يراءون ويمنعون الماعون.', lesson: '🌟 حافظ على صلاتك وأكرم اليتيم.' },
+  108: { scene: '🏞️🐑✨', title: 'نهر الكوثر', body: 'إنا أعطيناك الكوثر! نهر عظيم في الجنة أُعطيه النبي ﷺ. فصلِّ لربك وانحر. إن شانئك — مبغضك — هو الأبتر المنقطع.', lesson: '🌟 الصلاة والنحر لله وحده.' },
+  109: { scene: '🚫✋🌙', title: 'البراءة من الشرك', body: 'قل يا أيها الكافرون! لا أعبد ما تعبدون، ولا أنتم عابدون ما أعبد، لكم دينكم ولي دين. البراءة التامة من الشرك.', lesson: '🌟 التمسك بالتوحيد نجاة.' },
+  110: { scene: '🎉🕋👥', title: 'فتح مكة', body: 'إذا جاء نصر الله والفتح، ورأيت الناس يدخلون في دين الله أفواجاً — فسبّح بحمد ربك واستغفره، إنه كان تواباً. كان فتح مكة أعظم انتصار.', lesson: '🌟 عند النصر: سبّح واستغفر وتواضع.' },
+  111: { scene: '🔥🪵⛓️', title: 'أبو لهب', body: 'تبت يدا أبي لهب وتب! ما أغنى عنه ماله وما كسب. سيصلى ناراً ذات لهب، وامرأته حمّالة الحطب، في جيدها حبل من مسد. كل من عادى الإسلام خسر.', lesson: '🌟 لا تعادِ الحق، فالخسارة للمعاندين.' },
+  112: { scene: '💎🌟☝️', title: 'توحيد الله', body: 'قل هو الله أحد! الله الصمد — الذي يُصمد إليه في الحوائج. لم يلد ولم يولد، ولم يكن له كفواً أحد. سورة تعدل ثلث القرآن.', lesson: '🌟 الله واحد أحد، فاعبده وحده.' },
+  113: { scene: '🌄🌙🛡️', title: 'الاستعاذة', body: 'قل أعوذ برب الفلق، من شر ما خلق، ومن شر غاسق إذا وقب، ومن شر النفاثات في العقد، ومن شر حاسد إذا حسد. حصنٌ قوي لكل مؤمن.', lesson: '🌟 تحصّن بالله من كل شر.' },
+  114: { scene: '👥🛡️💭', title: 'الوسواس الخناس', body: 'قل أعوذ برب الناس، ملك الناس، إله الناس، من شر الوسواس الخناس، الذي يوسوس في صدور الناس، من الجنة والناس. استعذ بالله من الشيطان.', lesson: '🌟 قاوم وسواس الشيطان بالذكر.' }
+};
+
+// ============ أسئلة اختبار الأطفال ============
+const KIDS_QUIZ_POOL = [
+  { emoji: '🌞', q: 'ما اسم السورة التي تبدأ بـ "والشمس وضحاها"؟', options: ['سورة الشمس','سورة القمر','سورة النجم'], correct: 0 },
+  { emoji: '🐘', q: 'ما اسم السورة التي تتحدث عن أصحاب الفيل؟', options: ['سورة الفيل','سورة النمل','سورة البقرة'], correct: 0 },
+  { emoji: '🐎', q: 'ما اسم السورة التي تبدأ بـ "والعاديات ضبحاً"؟', options: ['سورة العاديات','سورة الخيل','سورة الليل'], correct: 0 },
+  { emoji: '💎', q: 'كم عدد آيات سورة الإخلاص؟', options: ['4 آيات','5 آيات','3 آيات'], correct: 0 },
+  { emoji: '👥', q: 'ما آخر سورة في المصحف الشريف؟', options: ['سورة الناس','سورة الفلق','سورة الإخلاص'], correct: 0 },
+  { emoji: '📖', q: 'ما أول ما نزل من القرآن الكريم؟', options: ['"اقرأ باسم ربك"','"الحمد لله"','"قل هو الله أحد"'], correct: 0 },
+  { emoji: '🕋', q: 'ما اسم السورة التي تتحدث عن رحلة الشتاء والصيف؟', options: ['سورة قريش','سورة الفيل','سورة النصر'], correct: 0 },
+  { emoji: '🌙', q: 'في أي ليلة أُنزل القرآن الكريم؟', options: ['ليلة القدر','ليلة الجمعة','ليلة العيد'], correct: 0 },
+  { emoji: '🏞️', q: 'ما اسم النهر الذي أُعطيه النبي ﷺ في الجنة؟', options: ['الكوثر','النيل','الفرات'], correct: 0 },
+  { emoji: '🌟', q: 'كم عدد سور جزء عمَّ؟', options: ['37 سورة','30 سورة','40 سورة'], correct: 0 },
+  { emoji: '🐑', q: 'ماذا نحر بعد الصلاة في سورة الكوثر؟', options: ['نذبح هدياً','نطعم فقيراً','نبني مسجداً'], correct: 0 },
+  { emoji: '☝️', q: 'ماذا تعني كلمة "الصمد"؟', options: ['الذي يُصمد إليه في الحوائج','الكبير جداً','الملك العظيم'], correct: 0 },
+  { emoji: '🌄', q: 'ما السورتان المسميتان بالمعوذتين؟', options: ['الفلق والناس','الإخلاص والفلق','الفلق والكوثر'], correct: 0 },
+  { emoji: '🌟', q: 'ما السورة التي تعدل ثلث القرآن؟', options: ['سورة الإخلاص','سورة الفاتحة','سورة القدر'], correct: 0 },
+  { emoji: '🌍', q: 'ما اسم السورة التي تبدأ بـ "إذا زلزلت الأرض"؟', options: ['الزلزلة','الواقعة','الحاقة'], correct: 0 },
+  { emoji: '💥', q: 'ما اسم السورة التي تتحدث عن يوم القيامة بأهواله؟', options: ['القارعة','التكاثر','العصر'], correct: 0 },
+  { emoji: '👨‍🦯', q: 'من جاء إلى النبي ﷺ فعبس في وجهه؟', options: ['رجل أعمى','رجل غني','رجل كبير'], correct: 0 },
+  { emoji: '🕊️', q: 'بماذا أهلك الله أصحاب الفيل؟', options: ['طير أبابيل','ريح شديدة','زلزال'], correct: 0 },
+  { emoji: '🔥', q: 'ما اسم السورة التي تذكر أبا لهب؟', options: ['المسد','الكافرون','النصر'], correct: 0 },
+  { emoji: '⏳', q: 'ما السورة التي تقسم بالعصر؟', options: ['سورة العصر','سورة الفجر','سورة الليل'], correct: 0 }
+];
+
 let currentLang = 'ar';
 let currentTheme = 'light';
 let currentSection = 'surahs';
@@ -1548,18 +864,25 @@ let quizIndex = 0;
 let quizCorrect = 0, quizWrong = 0, quizScore = 0;
 let quizTimer = null;
 let quizTimeLeft = 0;
+let quizPerQuestionTimer = null;
+let quizPerQuestionTime = 30;
 let quizAnswersLog = [];
 let currentOrderVerse = null;
 let orderWords = [];
 let orderSelected = [];
 let userData = { name: '', photo: '', registeredAt: '' };
 let selectedPlan = null;
+// Kids quiz state
+let kidsQuestions = [];
+let kidsIndex = 0;
+let kidsCorrect = 0, kidsWrong = 0, kidsScore = 0;
+let kidsAnswersLog = [];
 
 const TRANSLATIONS = {
   ar: {
     mainTitle: '📖 دار القرآن', subTitle: 'تعلّم وحفظ جزء عمَّ بصوت الشيخ الحصري',
-    tabs: { surahs: '📖 السور', quiz: '🎯 اختبارات', plans: '📋 خطتي', orderGame: '🔤 ترتيب', progress: '📊 تقدمي' },
-    titles: { surahs: 'سور جزء عمَّ', quiz: 'اختبارات ممتعة', plans: 'اختر خطتك للحفظ', order: 'لعبة ترتيب كلمات الآية', progress: 'تتبع حفظي' },
+    tabs: { surahs: '📖 السور', quiz: '🎯 اختبارات', plans: '📋 خطتي', orderGame: '🔤 ترتيب', progress: '📊 تقدمي', garden: '🌸 حديقة الحفاظ' },
+    titles: { surahs: 'سور جزء عمَّ', quiz: 'اختبارات ممتعة', plans: 'اختر خطتك للحفظ', order: 'لعبة ترتيب كلمات الآية', progress: 'تتبع حفظي', garden: 'حديقة الحفاظ' },
     kidHint: 'اضغط على أي سورة لتسمعها بصوت الشيخ الحصري وتقرأها',
     backText: 'رجوع للسور', playAllText: 'اسمع السورة كاملة', stopText: 'إيقاف', markMemText: 'حفظتها!',
     startQuizBtn: 'ابدأ الاختبار', resetQuizBtn: 'إعادة تعيين', checkOrderText: 'تحقق', newOrderText: 'آية جديدة', clearOrderText: 'مسح',
@@ -1583,8 +906,8 @@ const TRANSLATIONS = {
   },
   en: {
     mainTitle: '📖 Dar Al-Quran', subTitle: 'Learn and memorize Juz Amma with Sheikh Al-Husary',
-    tabs: { surahs: '📖 Surahs', quiz: '🎯 Quiz', plans: '📋 My Plan', orderGame: '🔤 Order', progress: '📊 Progress' },
-    titles: { surahs: 'Surahs of Juz Amma', quiz: 'Fun Quizzes', plans: 'Choose Your Plan', order: 'Order the Verse', progress: 'My Progress' },
+    tabs: { surahs: '📖 Surahs', quiz: '🎯 Quiz', plans: '📋 My Plan', orderGame: '🔤 Order', progress: '📊 Progress', garden: '🌸 Garden' },
+    titles: { surahs: 'Surahs of Juz Amma', quiz: 'Fun Quizzes', plans: 'Choose Your Plan', order: 'Order the Verse', progress: 'My Progress', garden: 'Garden of Memorizers' },
     kidHint: 'Click any surah to hear it in Sheikh Al-Husary voice',
     backText: 'Back', playAllText: 'Play Full Surah', stopText: 'Stop', markMemText: 'Memorized!',
     startQuizBtn: 'Start Quiz', resetQuizBtn: 'Reset', checkOrderText: 'Check', newOrderText: 'New Verse', clearOrderText: 'Clear',
@@ -1609,10 +932,10 @@ function t(key) {
   for (const k of keys) { if (v && v[k] !== undefined) v = v[k]; else return key; }
   return v;
 }
-
 function safeSetText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+// ============ الصوت ============
 function playHusaryAudio(surahNum, ayahNum, onEndCallback) {
   if (currentAudio) { currentAudio.pause(); currentAudio.onended = null; currentAudio.onerror = null; currentAudio = null; }
   const s = String(surahNum).padStart(3, '0');
@@ -1626,21 +949,15 @@ function playHusaryAudio(surahNum, ayahNum, onEndCallback) {
   audio.play().catch(() => { showToast(t('audioError')); if (onEndCallback) onEndCallback(); });
   return audio;
 }
-
 function stopAudio() {
-  isPlayingFullSurah = false;
-  audioRepeatRemaining = 0;
-  if (currentAudio) {
-    currentAudio.pause(); currentAudio.currentTime = 0;
-    currentAudio.onended = null; currentAudio.onerror = null; currentAudio = null;
-  }
+  isPlayingFullSurah = false; audioRepeatRemaining = 0;
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio.onended = null; currentAudio.onerror = null; currentAudio = null; }
   if (wordHighlightInterval) { clearInterval(wordHighlightInterval); wordHighlightInterval = null; }
   document.querySelectorAll('.verse.playing').forEach(v => v.classList.remove('playing'));
   document.querySelectorAll('.verse .word.active').forEach(w => w.classList.remove('active'));
   const indicator = document.getElementById('playingIndicator');
   if (indicator) indicator.classList.remove('active');
 }
-
 function startWordHighlight(verseEl, audio) {
   if (wordHighlightInterval) clearInterval(wordHighlightInterval);
   const words = verseEl.querySelectorAll('.word');
@@ -1651,9 +968,7 @@ function startWordHighlight(verseEl, audio) {
     let cum = 0;
     const timings = Array.from(words).map(w => {
       const d = (w.textContent.length / totalChars) * dur;
-      const item = { start: cum, end: cum + d };
-      cum += d;
-      return item;
+      const item = { start: cum, end: cum + d }; cum += d; return item;
     });
     wordHighlightInterval = setInterval(() => {
       if (!audio.duration || audio.paused || !audio.currentTime) return;
@@ -1668,8 +983,78 @@ function startWordHighlight(verseEl, audio) {
   else audio.addEventListener('loadedmetadata', setup, { once: true });
 }
 
+// ============ نغمات التشجيع والاحتفال ============
+function playHappyMelody() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = freq; osc.type = 'sine';
+      const st = ctx.currentTime + i * 0.1;
+      gain.gain.setValueAtTime(0.25, st);
+      gain.gain.exponentialRampToValueAtTime(0.01, st + 0.4);
+      osc.start(st); osc.stop(st + 0.4);
+    });
+  } catch(e) {}
+}
+function playSadMelody() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [392, 329.63, 261.63, 220];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = freq; osc.type = 'triangle';
+      const st = ctx.currentTime + i * 0.14;
+      gain.gain.setValueAtTime(0.18, st);
+      gain.gain.exponentialRampToValueAtTime(0.01, st + 0.45);
+      osc.start(st); osc.stop(st + 0.45);
+    });
+  } catch(e) {}
+}
+function speakPraise(text) {
+  if (!('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ar-SA'; u.rate = 0.9; u.pitch = 1.3;
+    const voices = window.speechSynthesis.getVoices();
+    const arVoice = voices.find(v => v.lang && v.lang.startsWith('ar'));
+    if (arVoice) u.voice = arVoice;
+    window.speechSynthesis.speak(u);
+  } catch(e) {}
+}
+function launchConfetti() {
+  const colors = ['#d4af37', '#ffd700', '#1abc9c', '#ff6b9d', '#7b2ff7', '#06d6a0', '#ef476f'];
+  for (let i = 0; i < 60; i++) {
+    const conf = document.createElement('div');
+    conf.className = 'confetti-piece';
+    conf.style.left = Math.random() * 100 + '%';
+    conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+    conf.style.animationDelay = (Math.random() * 0.5) + 's';
+    conf.style.animationDuration = (2 + Math.random() * 2) + 's';
+    conf.style.width = (6 + Math.random() * 8) + 'px';
+    conf.style.height = (8 + Math.random() * 10) + 'px';
+    conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 4500);
+  }
+}
+function showCelebrationBadge(text, isSad = false) {
+  const badge = document.createElement('div');
+  badge.className = isSad ? 'sadness-badge' : 'celebration-badge';
+  badge.textContent = text;
+  document.body.appendChild(badge);
+  setTimeout(() => badge.remove(), 1600);
+}
+
+// ============ التبويبات ============
 function createTabs() {
-  const sections = ['surahs', 'quiz', 'plans', 'orderGame', 'progress'];
+  const sections = ['surahs', 'quiz', 'plans', 'orderGame', 'progress', 'garden'];
   const container = document.getElementById('tabsContainer');
   if (!container) return;
   container.innerHTML = '';
@@ -1682,7 +1067,6 @@ function createTabs() {
     container.appendChild(tab);
   });
 }
-
 function switchSection(section) {
   if (section !== 'surahView') stopAudio();
   currentSection = section;
@@ -1693,31 +1077,24 @@ function switchSection(section) {
   if (section === 'progress') renderChecklist();
   if (section === 'plans') renderPlans();
   if (section === 'orderGame' && !currentOrderVerse) newOrderGame();
+  if (section === 'garden') renderGarden();
 }
-
 function updateUILanguage() {
   document.documentElement.lang = currentLang;
   document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-  safeSetText('mainTitle', t('mainTitle'));
-  safeSetText('subTitle', t('subTitle'));
-  safeSetText('titleSurahs', t('titles.surahs'));
-  safeSetText('titleQuiz', t('titles.quiz'));
-  safeSetText('titlePlans', t('titles.plans'));
-  safeSetText('titleOrder', t('titles.order'));
-  safeSetText('titleProgress', t('titles.progress'));
-  safeSetText('kidHint', t('kidHint'));
-  safeSetText('backText', t('backText'));
-  safeSetText('playAllText', t('playAllText'));
-  safeSetText('stopText', t('stopText'));
-  safeSetText('markMemText', t('markMemText'));
-  safeSetText('startQuizBtn', t('startQuizBtn'));
-  safeSetText('resetQuizBtn', t('resetQuizBtn'));
-  safeSetText('checkOrderText', t('checkOrderText'));
-  safeSetText('newOrderText', t('newOrderText'));
-  safeSetText('clearOrderText', t('clearOrderText'));
+  safeSetText('mainTitle', t('mainTitle')); safeSetText('subTitle', t('subTitle'));
+  safeSetText('titleSurahs', t('titles.surahs')); safeSetText('titleQuiz', t('titles.quiz'));
+  safeSetText('titlePlans', t('titles.plans')); safeSetText('titleOrder', t('titles.order'));
+  safeSetText('titleProgress', t('titles.progress')); safeSetText('titleGarden', t('titles.garden'));
+  safeSetText('kidHint', t('kidHint')); safeSetText('backText', t('backText'));
+  safeSetText('playAllText', t('playAllText')); safeSetText('stopText', t('stopText'));
+  safeSetText('markMemText', t('markMemText')); safeSetText('startQuizBtn', t('startQuizBtn'));
+  safeSetText('resetQuizBtn', t('resetQuizBtn')); safeSetText('checkOrderText', t('checkOrderText'));
+  safeSetText('newOrderText', t('newOrderText')); safeSetText('clearOrderText', t('clearOrderText'));
   safeSetText('playingText', t('playingNow'));
 }
 
+// ============ السور ============
 function renderSurahs() {
   const grid = document.getElementById('surahsGrid');
   if (!grid) return;
@@ -1730,12 +1107,10 @@ function renderSurahs() {
     grid.appendChild(card);
   });
 }
-
 function openSurah(num) {
   const surah = SURAHS.find(s => s.num === num);
   if (!surah) return;
-  stopAudio();
-  currentSurah = surah;
+  stopAudio(); currentSurah = surah;
   safeSetText('viewSurahName', `سورة ${surah.name}`);
   const meta = document.getElementById('viewSurahMeta');
   if (meta) meta.innerHTML = `
@@ -1748,8 +1123,7 @@ function openSurah(num) {
   container.innerHTML = '';
   surah.text.forEach((verse, i) => {
     const v = document.createElement('div');
-    v.className = 'verse';
-    v.dataset.ayah = i + 1;
+    v.className = 'verse'; v.dataset.ayah = i + 1;
     const words = verse.split(/\s+/).filter(Boolean);
     const wordsHtml = words.map(w => `<span class="word">${escapeHtml(w)}</span>`).join(' ');
     v.innerHTML = `${wordsHtml} <span class="verse-number">${i + 1}</span>`;
@@ -1760,7 +1134,6 @@ function openSurah(num) {
   const backBtn = document.querySelector('#section-surahView .back-btn');
   if (backBtn) backBtn.onclick = backToSurahs;
 }
-
 function playVerse(surahNum, ayahNum, verseEl) {
   isPlayingFullSurah = false;
   const indicator = document.getElementById('playingIndicator');
@@ -1768,14 +1141,11 @@ function playVerse(surahNum, ayahNum, verseEl) {
   document.querySelectorAll('.verse.playing').forEach(el => el.classList.remove('playing'));
   document.querySelectorAll('.verse .word.active').forEach(w => w.classList.remove('active'));
   verseEl.classList.add('playing');
-  currentPlayingVerseEl = verseEl;
-  currentPlayingVerseNum = ayahNum;
-  currentPlayingSurahNum = surahNum;
+  currentPlayingVerseEl = verseEl; currentPlayingVerseNum = ayahNum; currentPlayingSurahNum = surahNum;
   const repeat = parseInt(document.getElementById('repeatCount').value) || 1;
   audioRepeatRemaining = repeat;
   playVerseLoop();
 }
-
 function playVerseLoop() {
   if (audioRepeatRemaining <= 0) {
     if (currentPlayingVerseEl) currentPlayingVerseEl.classList.remove('playing');
@@ -1793,13 +1163,10 @@ function playVerseLoop() {
   });
   if (currentPlayingVerseEl) startWordHighlight(currentPlayingVerseEl, audio);
 }
-
 function backToSurahs() { stopAudio(); switchSection('surahs'); }
-
 function playWholeSurah() {
   if (!currentSurah) return;
-  stopAudio();
-  isPlayingFullSurah = true;
+  stopAudio(); isPlayingFullSurah = true;
   const container = document.getElementById('versesContainer');
   if (!container) return;
   const verses = container.querySelectorAll('.verse');
@@ -1817,23 +1184,17 @@ function playWholeSurah() {
   }
   playNext();
 }
-
 function markAsMemorized() {
   if (!currentSurah) return;
   memorizedSurahs.add(currentSurah.num);
-  saveMemorized();
-  showToast(t('memorized'));
+  saveMemorized(); showToast(t('memorized'));
 }
-
 function saveMemorized() { try { localStorage.setItem('quran_memorized', JSON.stringify([...memorizedSurahs])); } catch(e) {} }
 function loadMemorized() { try { const s = localStorage.getItem('quran_memorized'); if (s) memorizedSurahs = new Set(JSON.parse(s)); } catch(e) {} }
 
-function loadUserData() {
-  try { const s = localStorage.getItem('quran_user'); if (s) userData = JSON.parse(s); } catch(e) {}
-  updateUserUI();
-}
+// ============ بيانات المستخدم ============
+function loadUserData() { try { const s = localStorage.getItem('quran_user'); if (s) userData = JSON.parse(s); } catch(e) {} updateUserUI(); }
 function saveUserDataToStorage() { try { localStorage.setItem('quran_user', JSON.stringify(userData)); } catch(e) {} }
-
 function updateUserUI() {
   const avatar = document.getElementById('userAvatar');
   const nameEl = document.getElementById('userName');
@@ -1843,27 +1204,18 @@ function updateUserUI() {
   if (userData.name) {
     nameEl.textContent = userData.name;
     regEl.textContent = userData.registeredAt ? `📅 مسجل في: ${userData.registeredAt}` : '';
-  } else {
-    nameEl.textContent = t('notRegistered');
-    regEl.textContent = t('registerHint');
-  }
+  } else { nameEl.textContent = t('notRegistered'); regEl.textContent = t('registerHint'); }
   const modalAvatar = document.getElementById('modalAvatar');
-  if (modalAvatar) {
-    if (userData.photo) modalAvatar.innerHTML = `<img src="${userData.photo}" alt="">`;
-    else modalAvatar.textContent = '👤';
-  }
+  if (modalAvatar) { if (userData.photo) modalAvatar.innerHTML = `<img src="${userData.photo}" alt="">`; else modalAvatar.textContent = '👤'; }
 }
-
 function openRegisterModal() {
   document.getElementById('regName').value = userData.name || '';
   document.getElementById('modalAvatar').innerHTML = userData.photo ? `<img src="${userData.photo}" alt="">` : '👤';
   document.getElementById('registerModal').classList.add('show');
 }
 function closeRegisterModal() { document.getElementById('registerModal').classList.remove('show'); }
-
 document.getElementById('regPhoto')?.addEventListener('change', function(e) {
-  const f = e.target.files[0];
-  if (!f) return;
+  const f = e.target.files[0]; if (!f) return;
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
@@ -1882,7 +1234,6 @@ document.getElementById('regPhoto')?.addEventListener('change', function(e) {
   };
   reader.readAsDataURL(f);
 });
-
 function saveUserData() {
   const name = document.getElementById('regName').value.trim();
   if (!name) { showToast('⚠️ اكتب اسمك'); return; }
@@ -1890,108 +1241,82 @@ function saveUserData() {
   if (!userData.registeredAt) {
     userData.registeredAt = new Date().toLocaleString('ar-EG', { dateStyle: 'long', timeStyle: 'short' });
   }
-  saveUserDataToStorage();
-  updateUserUI();
-  closeRegisterModal();
+  saveUserDataToStorage(); updateUserUI(); closeRegisterModal();
   showToast(t('userSaved'));
 }
 
+// ============ الاختبارات ============
 function selectQuizMode(mode) {
   quizMode = mode;
-  document.getElementById('modeSurah').classList.toggle('selected', mode === 'surah');
-  document.getElementById('modeFull').classList.toggle('selected', mode === 'full');
+  ['kids','surah','full'].forEach(m => {
+    const el = document.getElementById('mode' + (m === 'kids' ? 'Kids' : m === 'surah' ? 'Surah' : 'Full'));
+    if (el) el.classList.toggle('selected', m === mode);
+  });
   document.getElementById('surahSelectWrap').style.display = mode === 'surah' ? 'block' : 'none';
   if (mode === 'surah') populateSurahSelect();
 }
-
 function populateSurahSelect() {
   const sel = document.getElementById('quizSurahSelect');
   if (!sel) return;
   sel.innerHTML = '<option value="">-- اختر سورة --</option>';
   SURAHS.forEach(s => {
     const opt = document.createElement('option');
-    opt.value = s.num;
-    opt.textContent = `سورة ${s.name}`;
+    opt.value = s.num; opt.textContent = `سورة ${s.name}`;
     sel.appendChild(opt);
   });
 }
 
+// أسئلة السورة (للاختبار المستوى الثاني)
 function generateSurahQuestions(surah) {
   const questions = [];
-  const wrongCounts = [surah.verses + 2, surah.verses - 2, surah.verses + 5].filter(n => n > 0);
-  const countOptions = [surah.verses, ...wrongCounts.slice(0, 3)].sort(() => Math.random() - 0.5);
-  questions.push({
-    q: `كم عدد آيات سورة ${surah.name}؟`,
-    options: countOptions.map(String),
-    correct: countOptions.indexOf(surah.verses)
-  });
-  questions.push({
-    q: `سورة ${surah.name} سورة...`,
-    options: ['مكية', 'مدنية'],
-    correct: surah.type === 'مكية' ? 0 : 1
-  });
-  const firstVerse = surah.text[0];
-  const otherVerses = SURAHS.filter(s => s.num !== surah.num).sort(() => Math.random() - 0.5).slice(0, 3).map(s => s.text[0]);
-  const firstOptions = [firstVerse, ...otherVerses].sort(() => Math.random() - 0.5);
-  questions.push({
-    q: `ما هي أول آية في سورة ${surah.name}؟`,
-    options: firstOptions,
-    correct: firstOptions.indexOf(firstVerse)
-  });
-  const numOptions = [surah.num, surah.num + 3, surah.num - 2, surah.num + 7].filter(n => n >= 78 && n <= 114).sort(() => Math.random() - 0.5);
-  while (numOptions.length < 4) numOptions.push(surah.num + Math.floor(Math.random() * 5) + 1);
-  questions.push({
-    q: `ما رقم سورة ${surah.name} في المصحف؟`,
-    options: numOptions.slice(0, 4).map(String),
-    correct: numOptions.slice(0, 4).indexOf(surah.num)
-  });
-  const lastVerse = surah.text[surah.text.length - 1];
-  const otherLasts = SURAHS.filter(s => s.num !== surah.num).sort(() => Math.random() - 0.5).slice(0, 3).map(s => s.text[s.text.length - 1]);
-  const lastOptions = [lastVerse, ...otherLasts].sort(() => Math.random() - 0.5);
-  questions.push({
-    q: `ما هي آخر آية في سورة ${surah.name}؟`,
-    options: lastOptions,
-    correct: lastOptions.indexOf(lastVerse)
-  });
-  const sampleVerses = [surah.text[Math.floor(surah.text.length / 2)]];
-  sampleVerses.forEach(v => {
+  for (let round = 0; round < 4; round++) {
+    const wrongCounts = [surah.verses + 2, surah.verses - 2, surah.verses + 5].filter(n => n > 0);
+    const countOptions = [surah.verses, ...wrongCounts.slice(0, 3)].sort(() => Math.random() - 0.5);
+    questions.push({
+      q: `كم عدد آيات سورة ${surah.name}؟`,
+      options: countOptions.map(String),
+      correct: countOptions.indexOf(surah.verses)
+    });
+    questions.push({
+      q: `سورة ${surah.name} سورة...`,
+      options: ['مكية', 'مدنية'],
+      correct: surah.type === 'مكية' ? 0 : 1
+    });
+    const firstVerse = surah.text[0];
+    const otherVerses = SURAHS.filter(s => s.num !== surah.num).sort(() => Math.random() - 0.5).slice(0, 3).map(s => s.text[0]);
+    const firstOptions = [firstVerse, ...otherVerses].sort(() => Math.random() - 0.5);
+    questions.push({
+      q: `ما هي أول آية في سورة ${surah.name}؟`,
+      options: firstOptions,
+      correct: firstOptions.indexOf(firstVerse)
+    });
+    const sampleVerse = surah.text[Math.floor(Math.random() * surah.text.length)];
     const wrongSurahs = SURAHS.filter(s => s.num !== surah.num).sort(() => Math.random() - 0.5).slice(0, 3).map(s => s.name);
     const opts = [surah.name, ...wrongSurahs].sort(() => Math.random() - 0.5);
     questions.push({
-      q: `في أي سورة نجد قوله تعالى: "${v}"؟`,
+      q: `في أي سورة نجد قوله تعالى: "${sampleVerse}"؟`,
       options: opts,
       correct: opts.indexOf(surah.name)
     });
-  });
-  if (surah.text.length > 3) {
-    const verse = surah.text[2];
-    const words = verse.split(' ');
-    if (words.length > 2) {
-      const hiddenIdx = Math.floor(words.length / 2);
-      const correctWord = words[hiddenIdx];
-      const display = words.map((w, i) => i === hiddenIdx ? '____' : w).join(' ');
-      const wrongWords = surah.text.join(' ').split(' ').filter(w => w !== correctWord).sort(() => Math.random() - 0.5).slice(0, 3);
-      const wordOpts = [correctWord, ...wrongWords].sort(() => Math.random() - 0.5);
-      questions.push({
-        q: `أكمل الآية: "${display}"`,
-        options: wordOpts,
-        correct: wordOpts.indexOf(correctWord)
-      });
-    }
   }
-  return questions.sort(() => Math.random() - 0.5).slice(0, 8);
+  return questions.sort(() => Math.random() - 0.5).slice(0, 15);
 }
 
+// أسئلة شاملة (30 سؤال)
 function generateFullQuiz() {
   const pool = [];
   const shuffled = [...SURAHS].sort(() => Math.random() - 0.5);
+  // عدد الآيات
   shuffled.forEach(s => {
+    const wrongs = [s.verses + 2, s.verses - 1, s.verses + 5, s.verses - 3].filter(n => n > 0 && n !== s.verses);
+    const opts = [s.verses, ...wrongs.slice(0, 3)].sort(() => Math.random() - 0.5);
     pool.push({
       q: `كم عدد آيات سورة ${s.name}؟`,
-      options: [s.verses, s.verses + 2, s.verses - 1, s.verses + 4].filter(n => n > 0).map(String),
-      correct: 0
+      options: opts.map(String),
+      correct: opts.indexOf(s.verses)
     });
   });
+  // نوع السورة
   shuffled.forEach(s => {
     pool.push({
       q: `سورة ${s.name} سورة...`,
@@ -1999,7 +1324,8 @@ function generateFullQuiz() {
       correct: s.type === 'مكية' ? 0 : 1
     });
   });
-  shuffled.slice(0, 15).forEach(s => {
+  // أول آية
+  shuffled.slice(0, 20).forEach(s => {
     const opts = [s.name, ...shuffled.filter(x => x.num !== s.num).slice(0, 3).map(x => x.name)].sort(() => Math.random() - 0.5);
     pool.push({
       q: `ما السورة التي تبدأ بـ "${s.text[0]}"؟`,
@@ -2007,60 +1333,60 @@ function generateFullQuiz() {
       correct: opts.indexOf(s.name)
     });
   });
+  // خلط
   pool.forEach(q => {
     const correctAnswer = q.options[q.correct];
     q.options = q.options.sort(() => Math.random() - 0.5);
     q.correct = q.options.indexOf(correctAnswer);
   });
-  return pool.sort(() => Math.random() - 0.5).slice(0, 20);
+  return pool.sort(() => Math.random() - 0.5).slice(0, 30);
 }
 
+// بدء الاختبار
 function startQuiz() {
   if (!quizMode) { showToast('⚠️ اختر نوع الاختبار أولاً'); return; }
+  if (quizMode === 'kids') { startKidsQuiz(); return; }
   if (quizMode === 'surah') {
     const num = parseInt(document.getElementById('quizSurahSelect').value);
     if (!num) { showToast(t('pleaseSelectSurah')); return; }
     const surah = SURAHS.find(s => s.num === num);
     quizQuestions = generateSurahQuestions(surah);
-    quizTimeLeft = 0;
   } else {
     quizQuestions = generateFullQuiz();
-    quizTimeLeft = 15 * 60;
   }
-  quizIndex = 0;
-  quizCorrect = 0; quizWrong = 0; quizScore = 0;
-  quizAnswersLog = [];
+  quizIndex = 0; quizCorrect = 0; quizWrong = 0; quizScore = 0; quizAnswersLog = [];
   document.getElementById('quizSetup').style.display = 'none';
   document.getElementById('quizPlay').style.display = 'block';
+  document.getElementById('kidsQuizPlay').style.display = 'none';
   document.getElementById('quizResults').style.display = 'none';
-  document.getElementById('timerBadge').style.display = quizMode === 'full' ? '' : 'none';
-  updateQuizStats();
-  if (quizMode === 'full') startQuizTimer();
-  showQuizQuestion();
+  document.getElementById('timerBadge').style.display = '';
+  updateQuizStats(); showQuizQuestion();
 }
-
 function startQuizTimer() {
   if (quizTimer) clearInterval(quizTimer);
+  quizTimeLeft = 30;
   updateTimerUI();
   quizTimer = setInterval(() => {
     quizTimeLeft--;
     updateTimerUI();
-    if (quizTimeLeft <= 0) { clearInterval(quizTimer); quizTimer = null; showToast(t('timeUp')); endQuiz(); }
+    if (quizTimeLeft <= 0) {
+      clearInterval(quizTimer); quizTimer = null;
+      // الوقت انتهى - تسجيل كخطأ والانتقال للسؤال التالي
+      document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+      const q = quizQuestions[quizIndex];
+      quizAnswersLog.push({ question: q.q, correct: q.options[q.correct], chosen: '⏰ لم يجب', isCorrect: false });
+      quizWrong++; quizScore = Math.max(0, quizScore - 3);
+      updateQuizStats();
+      document.querySelectorAll('.quiz-option').forEach((b, i) => { if (i === q.correct) b.classList.add('correct'); });
+      showToast('⏰ انتهى الوقت!');
+      setTimeout(() => { quizIndex++; showQuizQuestion(); }, 1600);
+    }
   }, 1000);
 }
-
-function updateTimerUI() {
-  const m = Math.floor(quizTimeLeft / 60).toString().padStart(2, '0');
-  const s = (quizTimeLeft % 60).toString().padStart(2, '0');
-  safeSetText('quizTimer', `${m}:${s}`);
-}
-
+function updateTimerUI() { safeSetText('quizTimer', quizTimeLeft); }
 function updateQuizStats() {
-  safeSetText('quizCorrect', quizCorrect);
-  safeSetText('quizWrong', quizWrong);
-  safeSetText('quizScore', quizScore);
+  safeSetText('quizCorrect', quizCorrect); safeSetText('quizWrong', quizWrong); safeSetText('quizScore', quizScore);
 }
-
 function showQuizQuestion() {
   if (quizIndex >= quizQuestions.length) { endQuiz(); return; }
   const q = quizQuestions[quizIndex];
@@ -2070,33 +1396,26 @@ function showQuizQuestion() {
   opts.innerHTML = '';
   q.options.forEach((opt, idx) => {
     const btn = document.createElement('button');
-    btn.className = 'quiz-option';
-    btn.textContent = opt;
+    btn.className = 'quiz-option'; btn.textContent = opt;
     btn.onclick = () => answerQuiz(btn, idx, q);
     opts.appendChild(btn);
   });
+  startQuizTimer();
 }
-
 function answerQuiz(btn, chosen, q) {
+  if (quizTimer) { clearInterval(quizTimer); quizTimer = null; }
   document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
   const isCorrect = chosen === q.correct;
   quizAnswersLog.push({ question: q.q, correct: q.options[q.correct], chosen: q.options[chosen], isCorrect });
   if (isCorrect) {
-    btn.classList.add('correct');
-    quizCorrect++;
-    quizScore += 10;
-    showToast(t('correct'));
+    btn.classList.add('correct'); quizCorrect++; quizScore += 10; showToast(t('correct'));
   } else {
-    btn.classList.add('wrong');
-    quizWrong++;
-    quizScore = Math.max(0, quizScore - 3);
-    showToast(t('wrong'));
+    btn.classList.add('wrong'); quizWrong++; quizScore = Math.max(0, quizScore - 3); showToast(t('wrong'));
     document.querySelectorAll('.quiz-option').forEach((b, i) => { if (i === q.correct) b.classList.add('correct'); });
   }
   updateQuizStats();
   setTimeout(() => { quizIndex++; showQuizQuestion(); }, 1600);
 }
-
 function endQuiz() {
   if (quizTimer) { clearInterval(quizTimer); quizTimer = null; }
   document.getElementById('quizPlay').style.display = 'none';
@@ -2107,106 +1426,185 @@ function endQuiz() {
   document.getElementById('resultEmoji').textContent = emoji;
   document.getElementById('resultSummary').innerHTML = `
     النتيجة: <span style="color:var(--teal);">${quizCorrect} / ${total}</span> (${percent}%)<br>
-    النقاط: <span style="color:var(--gold);">${quizScore}</span>
-  `;
+    النقاط: <span style="color:var(--gold);">${quizScore}</span>`;
   let html = '<div style="text-align:right; background:rgba(212,175,55,.08); padding:15px; border-radius:12px; max-height:400px; overflow-y:auto;"><h4 style="margin-bottom:10px; font-family:Amiri,serif;">📝 نموذج الإجابة الصحيحة:</h4>';
   quizAnswersLog.forEach((a, i) => {
     html += `<div style="margin-bottom:10px; padding:8px; background:${a.isCorrect ? 'rgba(6,214,160,.15)' : 'rgba(239,71,111,.15)'}; border-radius:8px; font-size:.9rem;">
       <strong>${i + 1}. ${a.question}</strong><br>
       ✅ الإجابة الصحيحة: <span style="color:var(--success); font-weight:700;">${a.correct}</span><br>
-      ${!a.isCorrect ? `❌ إجابتك: <span style="color:var(--danger);">${a.chosen}</span>` : ''}
-    </div>`;
+      ${!a.isCorrect ? `❌ إجابتك: <span style="color:var(--danger);">${a.chosen}</span>` : ''}</div>`;
   });
   html += '</div>';
   document.getElementById('resultAnswerModel').innerHTML = html;
+  if (percent >= 70) { launchConfetti(); playHappyMelody(); }
   showToast(t('quizComplete'));
 }
-
 function resetQuiz() {
   if (quizTimer) { clearInterval(quizTimer); quizTimer = null; }
   quizMode = null; quizQuestions = []; quizIndex = 0;
   quizCorrect = 0; quizWrong = 0; quizScore = 0; quizAnswersLog = [];
+  kidsQuestions = []; kidsIndex = 0; kidsCorrect = 0; kidsWrong = 0; kidsScore = 0; kidsAnswersLog = [];
   document.getElementById('quizSetup').style.display = 'block';
   document.getElementById('quizPlay').style.display = 'none';
+  document.getElementById('kidsQuizPlay').style.display = 'none';
   document.getElementById('quizResults').style.display = 'none';
-  document.getElementById('modeSurah').classList.remove('selected');
-  document.getElementById('modeFull').classList.remove('selected');
+  ['kids','surah','full'].forEach(m => {
+    const el = document.getElementById('mode' + (m === 'kids' ? 'Kids' : m === 'surah' ? 'Surah' : 'Full'));
+    if (el) el.classList.remove('selected');
+  });
   document.getElementById('surahSelectWrap').style.display = 'none';
   updateQuizStats();
 }
 
+// ============ اختبار الأطفال (المستوى الأول) ============
+function startKidsQuiz() {
+  kidsQuestions = [...KIDS_QUIZ_POOL].sort(() => Math.random() - 0.5).slice(0, 10);
+  kidsIndex = 0; kidsCorrect = 0; kidsWrong = 0; kidsScore = 0; kidsAnswersLog = [];
+  document.getElementById('quizSetup').style.display = 'none';
+  document.getElementById('quizPlay').style.display = 'none';
+  document.getElementById('kidsQuizPlay').style.display = 'block';
+  document.getElementById('quizResults').style.display = 'none';
+  updateKidsStats();
+  showKidsQuestion();
+}
+function updateKidsStats() {
+  safeSetText('kidsCorrect', kidsCorrect);
+  safeSetText('kidsWrong', kidsWrong);
+  safeSetText('kidsScore', kidsScore);
+}
+function showKidsQuestion() {
+  if (kidsIndex >= kidsQuestions.length) { endKidsQuiz(); return; }
+  const q = kidsQuestions[kidsIndex];
+  safeSetText('kidsEmoji', q.emoji);
+  safeSetText('kidsQuestion', q.q);
+  safeSetText('kidsProgress', `السؤال ${kidsIndex + 1} من ${kidsQuestions.length}`);
+  const opts = document.getElementById('kidsOptions');
+  opts.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'kids-option';
+    btn.textContent = opt;
+    btn.onclick = () => answerKids(btn, idx, q);
+    opts.appendChild(btn);
+  });
+}
+function answerKids(btn, chosen, q) {
+  document.querySelectorAll('.kids-option').forEach(b => b.disabled = true);
+  const isCorrect = chosen === q.correct;
+  const userName = userData.name || 'يا بطل';
+  kidsAnswersLog.push({ question: q.q, correct: q.options[q.correct], chosen: q.options[chosen], isCorrect });
+  if (isCorrect) {
+    btn.classList.add('correct');
+    kidsCorrect++; kidsScore += 10;
+    updateKidsStats();
+    playHappyMelody();
+    launchConfetti();
+    showCelebrationBadge(`🎉 أحسنت يا ${userName}! 🎉`);
+    setTimeout(() => speakPraise(`أحسنت يا ${userName}`), 300);
+  } else {
+    btn.classList.add('wrong');
+    kidsWrong++; kidsScore = Math.max(0, kidsScore - 3);
+    updateKidsStats();
+    playSadMelody();
+    document.querySelectorAll('.kids-option').forEach((b, i) => { if (i === q.correct) b.classList.add('correct'); });
+    showCelebrationBadge(`💪 حاول مرة أخرى يا ${userName}`, true);
+    setTimeout(() => speakPraise(`حاول مرة أخرى يا ${userName}`), 300);
+  }
+  setTimeout(() => { kidsIndex++; showKidsQuestion(); }, 2400);
+}
+function endKidsQuiz() {
+  document.getElementById('kidsQuizPlay').style.display = 'none';
+  document.getElementById('quizResults').style.display = 'block';
+  const total = kidsQuestions.length;
+  const percent = total > 0 ? Math.round((kidsCorrect / total) * 100) : 0;
+  const emoji = percent >= 90 ? '🏆' : percent >= 70 ? '🥈' : percent >= 50 ? '🥉' : '🌟';
+  document.getElementById('resultEmoji').textContent = emoji;
+  const userName = userData.name || 'يا بطل';
+  document.getElementById('resultSummary').innerHTML = `
+    <div style="font-size:1.4rem; margin-bottom:10px;">أحسنت يا ${userName}! 🎊</div>
+    النتيجة: <span style="color:var(--teal);">${kidsCorrect} / ${total}</span> (${percent}%)<br>
+    النقاط: <span style="color:var(--gold);">${kidsScore}</span>`;
+  let html = '<div style="text-align:right; background:rgba(212,175,55,.08); padding:15px; border-radius:12px; max-height:400px; overflow-y:auto;"><h4 style="margin-bottom:10px; font-family:Amiri,serif;">📝 نموذج الإجابة الصحيحة:</h4>';
+  kidsAnswersLog.forEach((a, i) => {
+    html += `<div style="margin-bottom:10px; padding:8px; background:${a.isCorrect ? 'rgba(6,214,160,.15)' : 'rgba(239,71,111,.15)'}; border-radius:8px; font-size:.9rem;">
+      <strong>${i + 1}. ${a.question}</strong><br>
+      ✅ الإجابة الصحيحة: <span style="color:var(--success); font-weight:700;">${a.correct}</span><br>
+      ${!a.isCorrect ? `❌ إجابتك: <span style="color:var(--danger);">${a.chosen}</span>` : ''}</div>`;
+  });
+  html += '</div>';
+  document.getElementById('resultAnswerModel').innerHTML = html;
+  if (percent >= 50) { launchConfetti(); playHappyMelody(); }
+  setTimeout(() => speakPraise(`أحسنت يا ${userName}! نتيجة رائعة`), 500);
+  showToast(t('quizComplete'));
+}
+
+// تصدير نتائج الاختبار
 function buildQuizReportHTML() {
-  const total = quizQuestions.length;
-  const percent = total > 0 ? Math.round((quizCorrect / total) * 100) : 0;
+  const isKids = document.getElementById('kidsQuizPlay') && kidsAnswersLog.length > 0 && quizAnswersLog.length === 0;
+  const log = isKids ? kidsAnswersLog : quizAnswersLog;
+  const correct = isKids ? kidsCorrect : quizCorrect;
+  const score = isKids ? kidsScore : quizScore;
+  const total = log.length;
+  const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
   const dateStr = new Date().toLocaleString('ar-EG', { dateStyle: 'long', timeStyle: 'short' });
   const avatarHtml = userData.photo ? `<img src="${userData.photo}">` : '👤';
   const name = userData.name || 'زائر';
-  let answersHtml = quizAnswersLog.map((a, i) => `
+  let answersHtml = log.map((a, i) => `
     <div style="margin-bottom:10px; padding:10px; background:${a.isCorrect ? '#e8f8f3' : '#fdecef'}; border-radius:8px; font-size:.85rem;">
       <strong>${i + 1}. ${escapeHtml(a.question)}</strong><br>
       ✅ الصحيحة: <span style="color:#06a37a; font-weight:700;">${escapeHtml(a.correct)}</span><br>
       ${!a.isCorrect ? `❌ إجابتك: <span style="color:#c81e3c;">${escapeHtml(a.chosen)}</span>` : ''}
-    </div>
-  `).join('');
+    </div>`).join('');
   return `
     <div class="report-card" style="font-family:Cairo,sans-serif;">
       <div class="report-header">
         <div class="report-avatar">${avatarHtml}</div>
-        <div class="report-info">
-          <h3>${escapeHtml(name)}</h3>
-          <div class="date">📅 ${dateStr}</div>
-        </div>
+        <div class="report-info"><h3>${escapeHtml(name)}</h3><div class="date">📅 ${dateStr}</div></div>
       </div>
       <div style="text-align:center; font-family:Amiri,serif; font-size:1.4rem; color:#1e5fa8; margin-bottom:10px;">📋 تقرير اختبار - دار القرآن</div>
       <div style="text-align:center; font-size:2.5rem; margin:10px 0;">${percent >= 90 ? '🏆' : percent >= 70 ? '🥈' : percent >= 50 ? '🥉' : '📚'}</div>
       <div class="report-body" style="text-align:center; font-size:1.15rem; margin-bottom:15px;">
-        <span class="label">النتيجة:</span> ${quizCorrect} / ${total} (${percent}%)<br>
-        <span class="label">النقاط:</span> ${quizScore}
+        <span class="label">النتيجة:</span> ${correct} / ${total} (${percent}%)<br>
+        <span class="label">النقاط:</span> ${score}
       </div>
       <div class="report-body">${answersHtml}</div>
       <div class="report-footer">
         دار القرآن — تحت إشراف الحاجه (فاطمه الزهراء) — إداره الأستاذه (ساره عبد الغني)<br>
         byt@muslim.com
       </div>
-    </div>
-  `;
+    </div>`;
 }
-
 function printQuizResult() {
   const html = buildQuizReportHTML();
   const w = window.open('', '_blank');
   w.document.write(`<html dir="rtl"><head><title>تقرير الاختبار</title><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:Cairo,sans-serif;padding:20px;background:#f0f4f8;}.report-card{background:#fff;border-radius:20px;padding:30px;border:3px solid #d4af37;max-width:700px;margin:auto;}.report-header{display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #d4af37;margin-bottom:15px;}.report-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#d4af37,#ffd700);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;border:3px solid #d4af37;}.report-avatar img{width:100%;height:100%;object-fit:cover;}.report-info h3{font-family:Amiri,serif;font-size:1.5rem;color:#1e5fa8;margin:0 0 4px;}.report-footer{margin-top:18px;padding-top:12px;border-top:1px dashed #ccc;font-size:.8rem;text-align:center;color:#666;}</style></head><body>${html}</body></html>`);
-  w.document.close();
-  setTimeout(() => { w.print(); }, 500);
+  w.document.close(); setTimeout(() => w.print(), 500);
 }
-
 function downloadQuizResult() {
   const html = buildQuizReportHTML();
   const w = document.createElement('div');
-  w.style.position = 'fixed';
-  w.style.left = '-9999px';
+  w.style.position = 'fixed'; w.style.left = '-9999px';
   w.innerHTML = html;
   document.body.appendChild(w);
   html2canvas(w.querySelector('.report-card'), { backgroundColor: '#fff', scale: 2 }).then(canvas => {
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
     a.download = `تقرير_اختبار_${Date.now()}.png`;
-    a.click();
-    document.body.removeChild(w);
+    a.click(); document.body.removeChild(w);
     showToast(t('reportDownloaded'));
   }).catch(() => { document.body.removeChild(w); showToast('⚠️ فشل التصدير'); });
 }
-
 function shareQuizResult() {
-  const total = quizQuestions.length;
-  const text = `📖 تقرير اختبار من دار القرآن\n\nالاسم: ${userData.name || 'زائر'}\nالنتيجة: ${quizCorrect} من ${total}\nالنقاط: ${quizScore}\n\nbyt@muslim.com`;
-  if (navigator.share) {
-    navigator.share({ title: 'تقرير اختبار - دار القرآن', text }).then(() => showToast(t('reportShared'))).catch(() => {});
-  } else {
-    navigator.clipboard?.writeText(text).then(() => showToast('📋 تم نسخ التقرير'));
-  }
+  const isKids = kidsAnswersLog.length > 0 && quizAnswersLog.length === 0;
+  const correct = isKids ? kidsCorrect : quizCorrect;
+  const total = isKids ? kidsAnswersLog.length : quizAnswersLog.length;
+  const score = isKids ? kidsScore : quizScore;
+  const text = `📖 تقرير اختبار من دار القرآن\n\nالاسم: ${userData.name || 'زائر'}\nالنتيجة: ${correct} من ${total}\nالنقاط: ${score}\n\nbyt@muslim.com`;
+  if (navigator.share) navigator.share({ title: 'تقرير اختبار - دار القرآن', text }).then(() => showToast(t('reportShared'))).catch(() => {});
+  else navigator.clipboard?.writeText(text).then(() => showToast('📋 تم نسخ التقرير'));
 }
 
+// ============ الخطط ============
 function renderPlans() {
   const grid = document.getElementById('plansGrid');
   if (!grid) return;
@@ -2222,35 +1620,24 @@ function renderPlans() {
         <span class="plan-stat">📅 ${p.days} يوم</span>
         <span class="plan-stat">📖 ${typeof p.daily === 'number' ? p.daily + ' آية/يوم' : p.daily + '/يوم'}</span>
         <span class="plan-stat">⭐ ${p.level}</span>
-      </div>
-    `;
+      </div>`;
     card.onclick = () => selectPlan(p);
     grid.appendChild(card);
   });
 }
-
-function selectPlan(plan) {
-  selectedPlan = plan;
-  renderPlans();
-  showPlanDetail(plan);
-  showToast(t('planSaved'));
-}
-
+function selectPlan(plan) { selectedPlan = plan; renderPlans(); showPlanDetail(plan); showToast(t('planSaved')); }
 function showPlanDetail(plan) {
   const wrap = document.getElementById('planDetailWrap');
   const detail = document.getElementById('planDetail');
   const daily = typeof plan.daily === 'number' ? plan.daily : null;
   let table = '';
   if (daily) {
-    let rows = '';
-    let surahIdx = 0;
-    let ayahInSurah = 0;
+    let rows = ''; let surahIdx = 0; let ayahInSurah = 0;
     for (let week = 1; week <= Math.min(Math.ceil(plan.days / 7), 12); week++) {
       const daysThisWeek = Math.min(7, plan.days - (week - 1) * 7);
       const versesThisWeek = daysThisWeek * daily;
       const startSurahName = SURAHS[surahIdx] ? SURAHS[surahIdx].name : '—';
-      let remaining = versesThisWeek;
-      let endSurahName = startSurahName;
+      let remaining = versesThisWeek; let endSurahName = startSurahName;
       while (remaining > 0 && surahIdx < SURAHS.length) {
         const avail = SURAHS[surahIdx].verses - ayahInSurah;
         if (remaining >= avail) { remaining -= avail; surahIdx++; ayahInSurah = 0; if (surahIdx < SURAHS.length) endSurahName = SURAHS[surahIdx].name; }
@@ -2274,11 +1661,9 @@ function showPlanDetail(plan) {
     ${table}
     <div style="text-align:center; margin-top:15px; padding:12px; background:rgba(212,175,55,.1); border-radius:12px; font-size:.9rem;">
       💡 <strong>نصيحة:</strong> كرر كل آية 5 مرات على الأقل قبل الانتقال، وراجع الأمس قبل الجديد.
-    </div>
-  `;
+    </div>`;
   wrap.style.display = 'block';
 }
-
 function buildPlanReportHTML() {
   if (!selectedPlan) return '';
   const dateStr = new Date().toLocaleString('ar-EG', { dateStyle: 'long', timeStyle: 'short' });
@@ -2289,47 +1674,34 @@ function buildPlanReportHTML() {
     <div class="report-card" style="font-family:Cairo,sans-serif;">
       <div class="report-header">
         <div class="report-avatar">${avatarHtml}</div>
-        <div class="report-info">
-          <h3>${escapeHtml(name)}</h3>
-          <div class="date">📅 ${dateStr}</div>
-        </div>
+        <div class="report-info"><h3>${escapeHtml(name)}</h3><div class="date">📅 ${dateStr}</div></div>
       </div>
       <div style="text-align:center; font-family:Amiri,serif; font-size:1.4rem; color:#1e5fa8; margin-bottom:10px;">📋 خطة الحفظ - دار القرآن</div>
       <div class="report-body">${detail}</div>
-      <div class="report-footer">
-        دار القرآن — تحت إشراف الحاجه (فاطمه الزهراء) — إداره الأستاذه (ساره عبد الغني)<br>
-        byt@muslim.com
-      </div>
-    </div>
-  `;
+      <div class="report-footer">دار القرآن — تحت إشراف الحاجه (فاطمه الزهراء) — إداره الأستاذه (ساره عبد الغني)<br>byt@muslim.com</div>
+    </div>`;
 }
-
 function printPlan() {
   if (!selectedPlan) { showToast('⚠️ اختر خطة أولاً'); return; }
   const html = buildPlanReportHTML();
   const w = window.open('', '_blank');
   w.document.write(`<html dir="rtl"><head><title>خطة الحفظ</title><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:Cairo,sans-serif;padding:20px;background:#f0f4f8;}.report-card{background:#fff;border-radius:20px;padding:30px;border:3px solid #d4af37;max-width:700px;margin:auto;}.report-header{display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #d4af37;margin-bottom:15px;}.report-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#d4af37,#ffd700);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;border:3px solid #d4af37;}.report-avatar img{width:100%;height:100%;object-fit:cover;}.report-info h3{font-family:Amiri,serif;font-size:1.5rem;color:#1e5fa8;margin:0 0 4px;}.plan-table{width:100%;border-collapse:collapse;}.plan-table th,.plan-table td{padding:8px;border-bottom:1px solid #ddd;text-align:right;font-size:.85rem;}.plan-table th{background:#eaf3fb;}.plan-stat{display:inline-block;padding:4px 10px;background:#eaf3fb;border-radius:10px;font-size:.8rem;margin:2px;}.report-footer{margin-top:18px;padding-top:12px;border-top:1px dashed #ccc;font-size:.8rem;text-align:center;color:#666;}</style></head><body>${html}</body></html>`);
-  w.document.close();
-  setTimeout(() => w.print(), 500);
+  w.document.close(); setTimeout(() => w.print(), 500);
 }
-
 function downloadPlan() {
   if (!selectedPlan) { showToast('⚠️ اختر خطة أولاً'); return; }
   const html = buildPlanReportHTML();
   const w = document.createElement('div');
   w.style.position = 'fixed'; w.style.left = '-9999px';
-  w.innerHTML = html;
-  document.body.appendChild(w);
+  w.innerHTML = html; document.body.appendChild(w);
   html2canvas(w.querySelector('.report-card'), { backgroundColor: '#fff', scale: 2 }).then(canvas => {
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
     a.download = `${selectedPlan.name}_${Date.now()}.png`;
-    a.click();
-    document.body.removeChild(w);
+    a.click(); document.body.removeChild(w);
     showToast(t('reportDownloaded'));
   }).catch(() => { document.body.removeChild(w); showToast('⚠️ فشل التصدير'); });
 }
-
 function sharePlan() {
   if (!selectedPlan) { showToast('⚠️ اختر خطة أولاً'); return; }
   const text = `📋 خطة الحفظ من دار القرآن\n\nالاسم: ${userData.name || 'زائر'}\nالخطة: ${selectedPlan.name}\nالمدة: ${selectedPlan.days} يوم\nالمستوى: ${selectedPlan.level}\n\nbyt@muslim.com`;
@@ -2337,6 +1709,7 @@ function sharePlan() {
   else navigator.clipboard?.writeText(text).then(() => showToast('📋 تم النسخ'));
 }
 
+// ============ ترتيب الآية ============
 function newOrderGame() {
   const candidates = [];
   SURAHS.forEach(s => s.text.forEach((v, i) => {
@@ -2352,7 +1725,6 @@ function newOrderGame() {
   const r = document.getElementById('orderResult');
   if (r) r.style.display = 'none';
 }
-
 function renderOrderGame() {
   const area = document.getElementById('orderArea');
   if (!area) return;
@@ -2381,7 +1753,6 @@ function renderOrderGame() {
     area.appendChild(chip);
   });
 }
-
 function checkOrder() {
   if (!currentOrderVerse) return;
   const result = document.getElementById('orderResult');
@@ -2392,13 +1763,14 @@ function checkOrder() {
     result.textContent = t('orderCorrect');
     result.style.background = 'linear-gradient(135deg,rgba(6,214,160,.15),rgba(26,188,156,.15))';
     result.style.color = 'var(--success)';
+    launchConfetti(); playHappyMelody();
   } else {
     result.textContent = t('orderWrong');
     result.style.background = 'linear-gradient(135deg,rgba(239,71,111,.15),rgba(255,107,157,.15))';
     result.style.color = 'var(--danger)';
+    playSadMelody();
   }
 }
-
 function clearOrder() {
   orderSelected = [];
   renderOrderGame();
@@ -2406,6 +1778,7 @@ function clearOrder() {
   if (r) r.style.display = 'none';
 }
 
+// ============ الحفظ والتقدم ============
 function renderChecklist() {
   const c = document.getElementById('surahChecklist');
   if (!c) return;
@@ -2417,40 +1790,32 @@ function renderChecklist() {
     item.onclick = () => {
       if (memorizedSurahs.has(s.num)) memorizedSurahs.delete(s.num);
       else memorizedSurahs.add(s.num);
-      saveMemorized();
-      renderChecklist();
+      saveMemorized(); renderChecklist();
     };
     c.appendChild(item);
   });
   updateProgressBar();
 }
-
 function updateProgressBar() {
-  const total = SURAHS.length;
-  const done = memorizedSurahs.size;
+  const total = SURAHS.length; const done = memorizedSurahs.size;
   const percent = Math.round((done / total) * 100);
   const fill = document.getElementById('progressFill');
   if (fill) { fill.style.width = percent + '%'; fill.textContent = percent + '%'; }
   safeSetText('progressText', `حفظت ${done} من ${total} سورة`);
   if (percent === 100) showToast(t('allMemorized'));
 }
-
 function generateReport() {
   if (!userData.name) { showToast(t('pleaseRegister')); openRegisterModal(); return; }
   const dateStr = new Date().toLocaleString('ar-EG', { dateStyle: 'long', timeStyle: 'short' });
   const avatarHtml = userData.photo ? `<img src="${userData.photo}">` : '👤';
-  const total = SURAHS.length;
-  const done = memorizedSurahs.size;
+  const total = SURAHS.length; const done = memorizedSurahs.size;
   const percent = Math.round((done / total) * 100);
   const surahsList = SURAHS.filter(s => memorizedSurahs.has(s.num)).map(s => `<span class="report-surah-tag">${s.name}</span>`).join('');
   const remaining = SURAHS.filter(s => !memorizedSurahs.has(s.num)).map(s => s.name).join('، ');
   const html = `
     <div class="report-header">
       <div class="report-avatar">${avatarHtml}</div>
-      <div class="report-info">
-        <h3>${escapeHtml(userData.name)}</h3>
-        <div class="date">📅 ${dateStr}</div>
-      </div>
+      <div class="report-info"><h3>${escapeHtml(userData.name)}</h3><div class="date">📅 ${dateStr}</div></div>
     </div>
     <div style="text-align:center; font-family:Amiri,serif; font-size:1.4rem; color:#1e5fa8; margin-bottom:15px;">📄 تقرير الحفظ - دار القرآن</div>
     <div class="report-body" style="text-align:center; font-size:1.15rem; margin-bottom:15px;">
@@ -2458,25 +1823,18 @@ function generateReport() {
     </div>
     ${surahsList ? `<div class="report-body"><div class="label">✅ السور المحفوظة:</div><div class="report-surahs">${surahsList}</div></div>` : '<div class="report-body">لم يتم حفظ أي سورة بعد.</div>'}
     ${remaining ? `<div class="report-body" style="margin-top:12px;"><div class="label">📖 السور المتبقية:</div><div>${remaining}</div></div>` : ''}
-    <div class="report-footer">
-      دار القرآن — تحت إشراف الحاجه (فاطمه الزهراء) — إداره الأستاذه (ساره عبد الغني)<br>
-      byt@muslim.com
-    </div>
-  `;
+    <div class="report-footer">دار القرآن — تحت إشراف الحاجه (فاطمه الزهراء) — إداره الأستاذه (ساره عبد الغني)<br>byt@muslim.com</div>`;
   document.getElementById('reportCard').innerHTML = html;
   document.getElementById('reportWrap').style.display = 'block';
   showToast(t('reportGenerated'));
 }
-
 function printReport() {
   if (!document.getElementById('reportCard').innerHTML) { showToast('⚠️ ولّد التقرير أولاً'); return; }
   const html = document.getElementById('reportCard').innerHTML;
   const w = window.open('', '_blank');
   w.document.write(`<html dir="rtl"><head><title>تقرير الحفظ</title><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:Cairo,sans-serif;padding:20px;background:#f0f4f8;}.report-card{background:#fff;border-radius:20px;padding:30px;border:3px solid #d4af37;max-width:700px;margin:auto;}.report-header{display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #d4af37;margin-bottom:15px;}.report-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#d4af37,#ffd700);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;border:3px solid #d4af37;}.report-avatar img{width:100%;height:100%;object-fit:cover;}.report-info h3{font-family:Amiri,serif;font-size:1.5rem;color:#1e5fa8;margin:0 0 4px;}.report-surahs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.report-surah-tag{padding:4px 10px;background:#eaf3fb;border:1px solid #1e5fa8;border-radius:12px;font-size:.8rem;font-weight:700;color:#1e5fa8;}.report-footer{margin-top:18px;padding-top:12px;border-top:1px dashed #ccc;font-size:.8rem;text-align:center;color:#666;}.label{font-weight:700;color:#1e5fa8;}</style></head><body><div class="report-card">${html}</div></body></html>`);
-  w.document.close();
-  setTimeout(() => w.print(), 500);
+  w.document.close(); setTimeout(() => w.print(), 500);
 }
-
 function downloadReport() {
   const card = document.getElementById('reportCard');
   if (!card.innerHTML) { showToast('⚠️ ولّد التقرير أولاً'); return; }
@@ -2484,11 +1842,9 @@ function downloadReport() {
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
     a.download = `تقرير_الحفظ_${Date.now()}.png`;
-    a.click();
-    showToast(t('reportDownloaded'));
+    a.click(); showToast(t('reportDownloaded'));
   }).catch(() => showToast('⚠️ فشل التصدير'));
 }
-
 function shareReport() {
   if (!document.getElementById('reportCard').innerHTML) { showToast('⚠️ ولّد التقرير أولاً'); return; }
   const text = `📄 تقرير الحفظ من دار القرآن\n\nالاسم: ${userData.name || 'زائر'}\nالتاريخ: ${new Date().toLocaleString('ar-EG')}\nعدد السور المحفوظة: ${memorizedSurahs.size} من ${SURAHS.length}\n\nbyt@muslim.com`;
@@ -2496,6 +1852,43 @@ function shareReport() {
   else navigator.clipboard?.writeText(text).then(() => showToast('📋 تم النسخ'));
 }
 
+// ============ حديقة الحفاظ ============
+function renderGarden() {
+  const grid = document.getElementById('gardenGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  SURAHS.forEach((s, i) => {
+    const story = STORIES[s.num];
+    if (!story) return;
+    const card = document.createElement('div');
+    const colorClass = 'g' + ((i % 6) + 1);
+    card.className = `garden-card ${colorClass}`;
+    card.innerHTML = `
+      <div class="garden-num">${s.num}</div>
+      <div class="garden-scene">${story.scene}</div>
+      <div class="garden-card-title">سورة ${s.name}</div>
+      <div class="garden-card-hint">👆 اضغط لقراءة القصة</div>`;
+    card.onclick = () => openGardenModal(s.num);
+    grid.appendChild(card);
+  });
+}
+function openGardenModal(surahNum) {
+  const story = STORIES[surahNum];
+  const surah = SURAHS.find(s => s.num === surahNum);
+  if (!story || !surah) return;
+  safeSetText('storyScene', story.scene);
+  safeSetText('storyTitle', `سورة ${surah.name} — ${story.title}`);
+  safeSetText('storyBody', story.body);
+  safeSetText('storyLesson', story.lesson);
+  document.getElementById('gardenModal').classList.add('show');
+  playHappyMelody();
+}
+function closeGardenModal() { document.getElementById('gardenModal').classList.remove('show'); }
+document.getElementById('gardenModal')?.addEventListener('click', function(e) {
+  if (e.target === this) closeGardenModal();
+});
+
+// ============ تبديل اللغة والمظهر ============
 function toggleLanguage() {
   currentLang = currentLang === 'ar' ? 'en' : 'ar';
   try { localStorage.setItem('quran_lang', currentLang); } catch(e) {}
@@ -2503,7 +1896,6 @@ function toggleLanguage() {
   if (currentSurah) openSurah(currentSurah.num);
   updateThemeButton(); updateUserUI();
 }
-
 function toggleTheme() {
   currentTheme = currentTheme === 'light' ? 'dark' : 'light';
   document.body.classList.toggle('dark-mode', currentTheme === 'dark');
@@ -2511,13 +1903,11 @@ function toggleTheme() {
   updateThemeButton();
   showToast(currentTheme === 'dark' ? t('themeDark') : t('themeLight'));
 }
-
 function updateThemeButton() {
   const btn = document.querySelector('.fab-theme');
   if (!btn) return;
   btn.firstChild.nodeValue = currentTheme === 'dark' ? '☀️' : '🌙';
 }
-
 function showToast(msg) {
   const toast = document.getElementById('toast');
   if (!toast) return;
@@ -2527,6 +1917,7 @@ function showToast(msg) {
   toast._t = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+// ============ التهيئة ============
 function initApp() {
   try {
     const savedLang = localStorage.getItem('quran_lang');
@@ -2535,22 +1926,14 @@ function initApp() {
     if (savedTheme === 'dark') { currentTheme = 'dark'; document.body.classList.add('dark-mode'); }
     document.documentElement.lang = currentLang;
     document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    loadMemorized();
-    loadUserData();
-    createTabs();
-    updateUILanguage();
-    renderSurahs();
-    updateThemeButton();
+    loadMemorized(); loadUserData();
+    createTabs(); updateUILanguage(); renderSurahs(); updateThemeButton();
     populateSurahSelect();
     console.log('✅ دار القرآن - القارئ: الشيخ محمود خليل الحصري');
-  } catch (err) {
-    console.error('❌', err);
-  }
+  } catch (err) { console.error('❌', err); }
 }
-
 window.addEventListener('beforeunload', stopAudio);
 window.addEventListener('pagehide', stopAudio);
-
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initApp);
 else initApp();
 window.addEventListener('pageshow', (e) => { if (e.persisted) initApp(); });
